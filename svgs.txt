@@ -1,0 +1,17 @@
+        <Svg
+      style={{
+        position:'absolute',
+        bottom:0
+      }}
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={width/2}
+      viewBox={`0 0 430 1`}
+      fill="none"
+      {...props}
+    >
+      <Path
+        d="M0 0v120h430V0c0 22.091-17.909 40-40 40H40C17.909 40 0 22.091 0 0z"
+        fill="#B4D42A"
+      />
+    </Svg>
