@@ -8,9 +8,12 @@ export default function Cast({ data }: any) {
 
     const ItemList = ( props: any ) => {
 
+
         function navigationPerson() {
 
-            n.navigate('Person')
+            n.navigate('Person', {
+                personId: props.item.id
+            })
             
         }
 
@@ -18,7 +21,7 @@ export default function Cast({ data }: any) {
 
             <View style={[styles.cont1, {
                 marginLeft: data[0] === props.item ? 30 : 0,
-                marginRight: props.index === data.length - 1 ? 30 : 40
+                marginRight: 30//props.index === data.length - 1 ? 30 : 30
             }]}>
 
                 <TouchableOpacity style={[styles.cont]}
@@ -28,7 +31,7 @@ export default function Cast({ data }: any) {
                     <Image
                     style={styles.img}
                     source={{
-                        uri: `https://image.tmdb.org/t/p/original/6RVxNlNmc0DIfZzaJKCJM43If3M.jpg`
+                        uri: `https://image.tmdb.org/t/p/original${props.item.profile_path}`
                     }}
                     />
 
@@ -36,11 +39,11 @@ export default function Cast({ data }: any) {
 
                 <Text style={[styles.txt2,{
                     marginTop:5
-                }]}>{props.item.name}</Text>
+                }]}>{props.item.original_name}</Text>
                 <Text style={[styles.txt2, {
                     color: COLORS.gray,
                     fontSize: 11
-                }]}>{props.item.subname}</Text>
+                }]}>{props.item.character}</Text>
 
             </View>
 

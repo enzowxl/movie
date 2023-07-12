@@ -13,7 +13,7 @@ export default function HeaderLeft({ image, onClick }: HeaderLeftProps ) {
         onPress={onClick}
         >
             <Image
-            style={{width: 30,height: 30}}
+            style={{width: 30,height: 30,  }}
             source={image}
             />
         </TouchableOpacity>

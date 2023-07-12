@@ -1,12 +1,10 @@
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack"
 import MovieScreen from "../../screens/Auth/movieScreen"
 import { Animated } from "react-native"
-import PersonScreen from "../../screens/Auth/personScreen"
-import ListMoviesScreen from "../../screens/Auth/listMoviesScreen"
+import EditProfileScreen from "../../screens/Auth/editProfileScreen"
+import ChangeLanguageScreen from "../../screens/Auth/changeLanguageScreen"
 
-export default function StackRoute({ animatedStyle, route }: any ) {
-
-    const { movieId } = route.params
+export default function StackProfileRoute({ animatedStyle }: any ) {
 
     const Stack = createStackNavigator()
 
@@ -27,21 +25,15 @@ export default function StackRoute({ animatedStyle, route }: any ) {
             >
 
                 <Stack.Screen
-                    name="Movie"
+                    name="EditProfile"
                 >
-                    {(props) => <MovieScreen movieId={movieId} {...props} />}
+                    {(props) => <EditProfileScreen {...props} />}
                 </Stack.Screen>
 
                 <Stack.Screen
-                    name="Person"
+                    name="ChangeLanguage"
                 >
-                    {(props) => <PersonScreen {...props}/>}
-                </Stack.Screen>
-
-                <Stack.Screen
-                    name="ListMovies"
-                >
-                    {(props) => <ListMoviesScreen {...props}/>}
+                    {(props) => <ChangeLanguageScreen {...props}/>}
                 </Stack.Screen>
 
             </Stack.Navigator>

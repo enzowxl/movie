@@ -1,29 +1,43 @@
 import { View, FlatList, StyleSheet, Text, Image, TouchableOpacity } from "react-native"
 import { COLORS } from "../../../constants"
+import { useNavigation } from "@react-navigation/native"
 
 export default function Recommendations({ data }: any) {
 
+
+    const n = useNavigation<any>()
+
     const ItemList = ( props: any ) => {
+
+        function navigationRecommendations() {
+
+            n.replace('Movie')
+            
+        }
 
         return (
 
-            <View style={[styles.cont1, {
+            <TouchableOpacity
+             onPress={navigationRecommendations}
+             style={[styles.cont1, {
                 marginLeft: data[0] === props.item ? 30 : 0,
                 marginRight: props.index === data.length - 1 ? 30 : 10
             }]}>
 
-                <TouchableOpacity style={[styles.cont]}>
-
                     <Image
                     style={styles.img}
                     source={{
-                        uri: `https://image.tmdb.org/t/p/original/66T5HymEPBtrwJHehEUlPjB2dec.jpg`
+                        uri: `https://image.tmdb.org/t/p/original${
+                            props.item.backdrop_path === null 
+                            ?
+                            props.item.poster_path
+                            :
+                            props.item.backdrop_path
+                        }`
                     }}
                     />
 
-                </TouchableOpacity>
-
-            </View>
+            </TouchableOpacity>
 
         )
 
@@ -41,6 +55,7 @@ export default function Recommendations({ data }: any) {
             <FlatList
                 data={data}
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 keyExtractor={data => data.id.toString()}
                 renderItem={(props) => (<ItemList {...props} />)}
             />

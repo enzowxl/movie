@@ -5,6 +5,7 @@ import TabRoute from "./tab.routes"
 import StackRoute from "./stack.routes"
 import CustomDrawer from "../../components/Auth/Drawer"
 import { useRef } from "react"
+import StackProfileRoute from "./stackProfile.routes"
 
 
 export default function DrawerRoute() {
@@ -27,83 +28,95 @@ export default function DrawerRoute() {
     const animatedStyle = {
         height: height,
         width: width,
-        borderRadius: radius, 
+        borderRadius: radius,
         transform: [{ scale: scaleInterpolate }],
         overflow: 'hidden',
     }
 
     return (
 
-        <View style={{flex:1, backgroundColor:COLORS.primary}}>
+        <View style={{ flex: 1, backgroundColor: COLORS.primary }}>
 
             <Drawer.Navigator
-            initialRouteName="Tab"
-            screenOptions={{
-                drawerType: 'slide',
-                overlayColor: 'transparent',
-                drawerStyle: {
-                    flex: 1,
-                    width: '65%',
-                    padding: 20,
-                    backgroundColor: 'transparent',
-                    
-                },
-                sceneContainerStyle: {
-                    backgroundColor: 'transparent'
-                },
-                headerShown: false,
-            }}
-            drawerContent={(props) => {
+                initialRouteName="Tab"
+                screenOptions={{
+                    drawerType: 'slide',
+                    overlayColor: 'transparent',
+                    drawerStyle: {
+                        flex: 1,
+                        width: '65%',
+                        padding: 20,
+                        backgroundColor: 'transparent',
 
-                const drawerStatus = useDrawerStatus()
+                    },
+                    sceneContainerStyle: {
+                        backgroundColor: 'transparent'
+                    },
+                    headerShown: false,
+                }}
+                drawerContent={(props) => {
 
-                const isDrawerOpen = drawerStatus === 'open'
+                    const drawerStatus = useDrawerStatus()
 
-                if (isDrawerOpen) {
-                    Animated.timing(scrolling, {
-                        toValue: 0,
-                        duration: 500,
-                        useNativeDriver: false,
-                    }).start();
-    
-                } else {
-                    Animated.timing(scrolling, {
-                        toValue: width / 2,
-                        duration: 500,
-                        useNativeDriver: false,
-                    }).start();
-                }
+                    const isDrawerOpen = drawerStatus === 'open'
 
-                return (
-                    <CustomDrawer
-                    nav={props.navigation}
-                    />
-                )
+                    if (isDrawerOpen) {
+                        Animated.timing(scrolling, {
+                            toValue: 0,
+                            duration: 500,
+                            useNativeDriver: false,
+                        }).start();
 
-            }}
+                    } else {
+                        Animated.timing(scrolling, {
+                            toValue: width / 2,
+                            duration: 500,
+                            useNativeDriver: false,
+                        }).start();
+                    }
+
+                    return (
+                        <CustomDrawer
+                            nav={props.navigation}
+                        />
+                    )
+
+                }}
             >
 
                 <Drawer.Screen
-                name="Tab"
+                    name="Tab"
                 >
                     {
-                    props => 
-                    <TabRoute
-                    animatedStyle={animatedStyle}
-                    {...props}
-                    />
+                        props =>
+                            <TabRoute
+                                animatedStyle={animatedStyle}
+                                {...props}
+                            />
                     }
                 </Drawer.Screen>
 
                 <Drawer.Screen
-                name="Stack"
+                    name="Stack"
                 >
                     {
-                    props =>
-                    <StackRoute
-                    animatedStyle={animatedStyle}
-                    {...props}
-                    />
+                        props =>
+                            <StackRoute
+                                animatedStyle={animatedStyle}
+                                {...props}
+                            />
+                    }
+                </Drawer.Screen>
+
+                <Drawer.Screen
+                    name="StackProfile"
+                >
+                    {
+                        props =>
+                            <StackProfileRoute
+                                animatedStyle={animatedStyle}
+                                {...props}
+                            />
                     }
                 </Drawer.Screen>
 

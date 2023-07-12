@@ -42,11 +42,12 @@ export default function List({ url, title }: ListProps) {
     }
 
     const Item = ( props: any ) => {
+        
 
         const navigateMovie = () => {
 
             n.navigate('Stack', {
-                routeName: 'Movie'
+                movieId: props.item.id
             })
 
         }

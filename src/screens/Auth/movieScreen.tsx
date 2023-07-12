@@ -8,20 +8,78 @@ import Genres from '../../components/Auth/Genres'
 import Splash from '../../components/Splash'
 import Cast from '../../components/Auth/Cast'
 import Recommendations from '../../components/Auth/Recommendations'
+import Overview from '../../components/Auth/Overview'
+import MovieTitles from '../../components/Auth/MovieTitles'
+import MovieImage from '../../components/Auth/MovieImage'
 
 
-export default function MovieScreen({ route }: any) {
+export default function MovieScreen({ movieId }: any) {
 
     const { width } = useWindowDimensions()
 
-    const [response, updateResponse] = useState<any>()
+    const [response, updateResponse] = useState<any>({})
+    const [cast, updateCast] = useState<any>()
+    const [recommendations, updateRecommendations] = useState<any>()
     const [loading, updateLoading] = useState(true)
 
     const n = useNavigation<any>()
 
+    useEffect(() => {
 
 
-    if (!loading) return <Splash />
+        (() => {
+
+            api.request({
+                url: `movie/${movieId}?language=en-US`,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${CONFIG.API_KEY}`
+                }
+            })
+                .then(function (res) {
+
+                    updateResponse(res.data)
+
+                })
+
+            api.request({
+                url: `movie/${movieId}/credits?language=en-US`,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${CONFIG.API_KEY}`
+                }
+            })
+                .then(function (res) {
+
+                    updateCast(res.data.cast)
+
+                })
+
+            api.request({
+                url: `movie/${movieId}/recommendations?language=en-US&page=1`,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${CONFIG.API_KEY}`
+                }
+            })
+                .then(function (res) {
+
+                    updateRecommendations(res.data.results)
+
+                })
+
+            updateLoading(false)
+
+        })()
+
+    }, [movieId])
+
+
+
+    if (loading) return <Splash />
 
     return (
 
@@ -30,96 +88,80 @@ export default function MovieScreen({ route }: any) {
             <Header.Root
                 backGround={false}
             >
-
                 <Header.Left
                     onClick={() => {
                         n.goBack()
-                        updateResponse('')
+                        updateResponse({})
                     }}
                     image={require('../../assets/Header/previous-green.png')}
                 />
-
                 <Header.Center
                     text='MOVIE DETAIL'
                 />
-
                 <Header.Right
                     onClick={() => { }}
                     image={require('../../assets/Header/heart-favorite.png')}
                 />
-
             </Header.Root>
 
-            <ImageBackground
-                style={{backgroundColor:COLORS.primary}}
-                source={{
-                    uri: `https://image.tmdb.org/t/p/original/74xTEgt7R36Fpooo50r9T25onhq.jpg`
-                }}
-            >
-
-                <View
-                    style={[styles.img, { width }]}
-                />
-
-            </ImageBackground>
+            <MovieImage
+            response={response?.poster_path}
+            />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={[styles.cont2, { width }]}
             >
 
-                <View style={styles.contText}>
-                    
-                    <Text style={[styles.txt, { width: 300, }]}
-                    >The Batman</Text>
-
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >2h 95m</Text>
-
-                </View>
-
-                <Genres
-                    data={[
-                        { id: 1, name: 'Crime' }, { id: 2, name: 'Mystery' }, { id: 3, name: 'Thriller' }
-                    ]}
+                <MovieTitles
+                response={response}
                 />
 
-                <View style={styles.contSinopse}>
+                {
+                    response?.genres?.length === 0
+                        ?
+                        null
+                        :
+                        <Genres
+                            data={response?.genres}
+                        />
 
-                    <Text style={[styles.txt, { fontSize: 20, marginBottom: 10 }]}
-                    >Sinopse</Text>
+                }
 
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.</Text>
+                {
+                    response?.overview?.length === 0
+                        ?
+                        null
+                        :
+                        <Overview
+                            response={response}
+                        />
+                }
 
-                </View>
+                {
 
-                <Cast
-                    data={[
-                        { id: 1, name: 'Robert Pattinson', subname: 'Bruce Wayne' },
-                        { id: 2, name: 'Zoe Kravitz', subname: 'Selina Kyle' },
-                        { id: 3, name: 'Paul Dano', subname: 'Edward Nashton' },
-                        { id: 4, name: 'Paul Dano', subname: 'Edward Nashton' },
-                        { id: 5, name: 'Paul Dano', subname: 'Edward Nashton' },
-                        { id: 6, name: 'Paul Dano', subname: 'Edward Nashton' }
-                    ]}
-                />
+                    cast?.length === 0
+                        ?
+                        null
+                        :
+                        <Cast
+                            data={cast}
+                        />
 
-                <Recommendations
-                    data={[
-                        { id: 1, name: 'Robert Pattinson', subname: 'Bruce Wayne' },
-                        { id: 2, name: 'Zoe Kravitz', subname: 'Selina Kyle' },
-                        { id: 3, name: 'Paul Dano', subname: 'Edward Nashton' },
-                        { id: 4, name: 'Paul Dano', subname: 'Edward Nashton' },
-                        { id: 5, name: 'Paul Dano', subname: 'Edward Nashton' },
-                        { id: 6, name: 'Paul Dano', subname: 'Edward Nashton' }
-                    ]}
-                />
+                }
 
-
+                {
+                    recommendations?.length === 0
+                        ?
+                        null
+                        :
+                        <Recommendations
+                            data={recommendations}
+                        />
+                }
 
             </ScrollView>
-            
+
         </View>
 
     )
@@ -140,26 +182,9 @@ const styles = StyleSheet.create({
         bottom: 0,
         height: '45%',
         backgroundColor: COLORS.primary,
-        borderTopLeftRadius:40,
-        borderTopRightRadius:40,
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
 
     },
-    txt: {
-        fontSize: 25,
-        fontFamily: 'Jost_600SemiBold',
-        color: COLORS.white,
-
-    },
-    contText: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 30,
-        paddingTop: 30
-    },
-    contSinopse: {
-        paddingHorizontal: 30,
-        marginBottom: 20 
-    }
 
 })

@@ -60,7 +60,7 @@ export default function HomeScreen() {
                 flex: 1, 
             }}>
 
-                <View style={{ marginBottom: 100 }} />
+                <View style={{ marginTop: 100, marginBottom: 60 }} >
 
                 <List
                 title='Trends'
@@ -77,7 +77,7 @@ export default function HomeScreen() {
                 url={`movie/now_playing?language=${language}&page=${page}`}
                 />
 
-                <View style={{ marginBottom: 60 }} />
+                </View>
 
             </ScrollView>
 

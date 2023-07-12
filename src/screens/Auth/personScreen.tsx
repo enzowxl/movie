@@ -7,24 +7,56 @@ import { useEffect, useState } from 'react'
 import Splash from '../../components/Splash'
 import Recommendations from '../../components/Auth/Recommendations'
 import Participation from '../../components/Auth/Participations'
+import Biography from '../../components/Auth/Biography'
+import PersonalInfo from '../../components/Auth/PersonalInfo'
+import PersonImage from '../../components/Auth/MovieImage'
 
 
 export default function PersonScreen({ route }: any) {
+
+    const { personId } = route.params
 
     const { width } = useWindowDimensions()
 
     const [response, updateResponse] = useState<any>()
     const [loading, updateLoading] = useState(true)
+    const [biographyPerson, updateBiographyPerson] = useState(false)
 
     const n = useNavigation<any>()
 
     function seeMore() {
 
-        console.log('a')
+        updateBiographyPerson(!biographyPerson)
 
     }
 
-    if (!loading) return <Splash />
+    useEffect(() => {
+
+
+        (() => {
+
+            api.request({
+                url: `person/${personId}?language=en-US`,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${CONFIG.API_KEY}`
+                }
+            })
+                .then(function (res) {
+
+                    updateResponse(res.data)
+
+                })
+
+            updateLoading(false)
+
+        })()
+
+    }, [personId])
+    
+
+    if (loading) return <Splash />
 
     return (
 
@@ -53,18 +85,9 @@ export default function PersonScreen({ route }: any) {
 
             </Header.Root>
 
-            <ImageBackground
-                style={{ backgroundColor: COLORS.primary }}
-                source={{
-                    uri: `https://image.tmdb.org/t/p/original/6RVxNlNmc0DIfZzaJKCJM43If3M.jpg`
-                }}
-            >
-
-                <View
-                    style={[styles.img, { width }]}
-                />
-
-            </ImageBackground>
+            <PersonImage
+            response={response?.profile_path}
+            />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -74,45 +97,28 @@ export default function PersonScreen({ route }: any) {
                 <View style={styles.contText}>
 
                     <Text style={[styles.txt, { width: 300, }]}
-                    >Robert Pattinson</Text>
+                    >{response?.name}</Text>
 
                 </View>
 
-                <View style={styles.contSinopse}>
+                {
 
-                    <Text style={[styles.txt, { fontSize: 20, marginBottom: 10 }]}
-                    >Biography</Text>
+                    response?.biography?.length === 0
+                        ?
+                        null
+                        :
+                        <Biography
+                        biographyPerson={biographyPerson}
+                        response={response}
+                        seeMore={seeMore}
+                        />
 
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >Robert Douglas Thomas Pattinson (born 13 May 1986) is an English actor. Noted for his versatile roles in both big-budget and independent films, Pattinson has been ranked...
+                }
 
-                        <Text
-                            onPress={seeMore}
-                            style={{ color: COLORS.secondary }}
-                        > More</Text>
 
-                    </Text>
-
-                </View>
-
-                <View style={styles.contSinopse}>
-
-                    <Text style={[styles.txt, { fontSize: 20, marginBottom: 10 }]}
-                    >Personal information</Text>
-
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >Occupation - Acting</Text>
-
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >Genre - Masculine</Text>
-
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >Birth - 1986-05-13 (37 age)</Text>
-
-                    <Text style={[styles.txt, { fontFamily: 'Jost_400Regular', fontSize: 14 }]}
-                    >Birthplace - Barnes, London, England, UK</Text>
-
-                </View>
+                <PersonalInfo
+                response={response}
+                />
 
                 <Participation
                     data={[
