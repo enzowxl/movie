@@ -18,14 +18,15 @@ export default function List({ url, title }: ListProps) {
 
     useEffect(() => {
 
-        api.get(url, {
+        api.request({
+            url: url,
             method: 'GET',
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${CONFIG.API_KEY}`
             }
         })
-            .then((res) => {
+            .then(function (res){
 
                 updateResponse(res.data.results)
                 updateLoading(false)
@@ -34,12 +35,18 @@ export default function List({ url, title }: ListProps) {
 
     }, [])
 
-    const Item = ({ data }: { data: any }) => {
+    function navigateMoviesList() {
+
+        n.navigate('Stack')
+        
+    }
+
+    const Item = ( props: any ) => {
 
         const navigateMovie = () => {
 
             n.navigate('Stack', {
-                data: data
+                routeName: 'Movie'
             })
 
         }
@@ -51,11 +58,11 @@ export default function List({ url, title }: ListProps) {
             >
                 <Image
                     source={{
-                        uri: `https://image.tmdb.org/t/p/original/${data.poster_path}`
+                        uri: `https://image.tmdb.org/t/p/original/${props.item.poster_path}`
                     }}
                     style={[styles.itemCont, {
-                        marginLeft: response[0].id === data.id ? 30 : 0,
-                        marginRight: 10
+                        marginLeft: response[0].id === props.item.id ? 30 : 0,
+                        marginRight: props.index === response.length - 1 ? 30 : 10
                     }]} />
             </TouchableOpacity>
 
@@ -71,7 +78,9 @@ export default function List({ url, title }: ListProps) {
 
                 <Text style={styles.txt}>{title}</Text>
 
-                <TouchableOpacity>
+                <TouchableOpacity
+                onPress={navigateMoviesList}
+                >
 
                     <Text style={[styles.txt, {
                         fontSize: 15,
@@ -96,7 +105,7 @@ export default function List({ url, title }: ListProps) {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (<Item data={item} />)}
+                renderItem={(props) => (<Item {...props} />)}
             />
 
             }

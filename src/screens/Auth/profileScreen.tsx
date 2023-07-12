@@ -10,10 +10,6 @@ export default function ProfileScreen() {
 
         <View style={styles.cont}>
 
-            <View style={[styles.cont2, { width }]}>
-
-
-            </View>
 
         </View>
 
@@ -25,13 +21,7 @@ const styles= StyleSheet.create({
 
     cont: {
         flex:1,
-        backgroundColor: COLORS.secondary
+        backgroundColor: COLORS.primary
     },
-    cont2:{
-        height:'100%',
-        backgroundColor:COLORS.primary,
-        borderBottomStartRadius:40,
-        borderBottomEndRadius:40
-    }
 
 })

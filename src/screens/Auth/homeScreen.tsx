@@ -27,7 +27,8 @@ export default function HomeScreen() {
 
     const [fontLoaded] = useFonts({
         Jost_600SemiBold,
-        Jost_700Bold
+        Jost_700Bold,
+        Jost_400Regular
     })
 
     if (!fontLoaded) return <Splash />
@@ -53,7 +54,11 @@ export default function HomeScreen() {
                 
             </Header.Root>
 
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView 
+            showsVerticalScrollIndicator={false}
+            style={{ 
+                flex: 1, 
+            }}>
 
                 <View style={{ marginBottom: 100 }} />
 
@@ -71,6 +76,8 @@ export default function HomeScreen() {
                 title='In theaters'
                 url={`movie/now_playing?language=${language}&page=${page}`}
                 />
+
+                <View style={{ marginBottom: 60 }} />
 
             </ScrollView>
 

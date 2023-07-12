@@ -1,72 +1,62 @@
-import { Image } from 'react-native'
+import { Animated, Image, StyleSheet, View } from 'react-native'
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
 import HomeScreen from "../../screens/Auth/homeScreen"
 import ProfileScreen from '../../screens/Auth/profileScreen'
+import CustomTab from '../../components/Auth/Tab'
+import CustomTabButton from '../../components/Auth/Tab/TabButton'
 
 import { COLORS } from "../../constants"
+import TabBarIcon from '../../components/Auth/Tab/TabIcon'
 
-export default function TabRoute() {
+export default function TabRoute({ animatedStyle }: any ) {
 
     const Tab = createBottomTabNavigator()
 
     return (
 
-        <Tab.Navigator
-        screenOptions={({
-            headerShown: false,
-            tabBarStyle: {
-              backgroundColor: COLORS.secondary,
-              elevation: 0, 
-              borderTopWidth: 0,
-              height:60
-            },
-            tabBarShowLabel: false,
-        })}
-        >
+        <Animated.View style={{...animatedStyle}}>
 
-            <Tab.Screen
-            options={{
-                tabBarIcon: ({ focused, size, color }) => {
+            <Tab.Navigator
+            tabBar={(props) => (<CustomTab {...props}/>)}
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarStyle: styles.tab,
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (<TabBarIcon route={route} focused={focused} />)
+            })}
+            >
 
-                    if(focused) return <Image
-                                style={{width:30, height:30}}
-                                source={require('../../assets/tabBar/home-full.png')}
-                                />
+                <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    tabBarButton: (props) => (<CustomTabButton {...props} />)
+                }}
+                />
 
-                    return <Image
-                    style={{width:30, height:30}}
-                    source={require('../../assets/tabBar/home.png')}
-                    />
+                <Tab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                    tabBarButton: (props) => (<CustomTabButton {...props} />)
+                }}
+                />
 
-                }
-            }}
-            name="Home"
-            component={HomeScreen}
-            />
+            </Tab.Navigator>
 
-            <Tab.Screen
-            options={{
-                tabBarIcon: ({ focused, size, color }) => {
-
-                    if(focused) return <Image
-                                style={{width:30, height:30}}
-                                source={require('../../assets/tabBar/user-full.png')}
-                                />
-
-                    return <Image
-                    style={{width:30, height:30}}
-                    source={require('../../assets/tabBar/user.png')}
-                    />
-
-                }
-            }}
-            name="Profile"
-            component={ProfileScreen}
-            />
-
-        </Tab.Navigator>
+        </Animated.View>
 
     )
 }
+
+const styles = StyleSheet.create({
+    tab:{
+        position:'absolute',
+        bottom:5,
+        backgroundColor: COLORS.trans,
+        elevation: 0, 
+        borderTopWidth: 0,
+    }
+})

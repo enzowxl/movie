@@ -12,7 +12,7 @@ export default function HeaderCenter({ text }: HeaderCenterProps) {
         <Text style={{
             fontFamily:'Jost_600SemiBold',
             fontSize:20,
-            color:COLORS.secondary
+            color:COLORS.secondary,
         }}
         >{text}</Text>
 
