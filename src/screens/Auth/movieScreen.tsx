@@ -75,7 +75,7 @@ export default function MovieScreen({ movieId }: any) {
 
         })()
 
-    }, [movieId])
+    }, [])
 
 
 
