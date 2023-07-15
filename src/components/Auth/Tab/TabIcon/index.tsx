@@ -1,35 +1,32 @@
-import { Image } from 'react-native'
+import { Image } from "react-native";
+import { COLORS } from "../../../../constants";
 
 export default function TabBarIcon(props: any) {
+  let icon;
 
-    let icon;
+  if (props.route.name === "Home") {
+    icon = props.focused
+      ? require("../../../../assets/tabBar/home-full.png")
+      : require("../../../../assets/tabBar/home.png");
 
-    if (props.route.name === 'Home') {
+    return (
+      <Image
+        style={{ width: 30, height: 30, tintColor: COLORS.primary }}
+        source={icon}
+      />
+    );
+  } else if (props.route.name === "Profile") {
+    icon = props.focused
+      ? require("../../../../assets/tabBar/user-full.png")
+      : require("../../../../assets/tabBar/user.png");
 
-        icon =
-            props.focused
-                ? require('../../../../assets/tabBar/home-full.png')
-                : require('../../../../assets/tabBar/home.png')
+    return (
+      <Image
+        style={{ width: 30, height: 30, tintColor: COLORS.primary }}
+        source={icon}
+      />
+    );
+  }
 
-        return <Image
-            style={{ width: 30, height: 30 }}
-            source={icon}
-        />
-
-    } else if (props.route.name === 'Profile') {
-
-        icon =
-            props.focused
-                ? require('../../../../assets/tabBar/user-full.png')
-                : require('../../../../assets/tabBar/user.png')
-
-        return <Image
-            style={{ width: 30, height: 30 }}
-            source={icon}
-        />
-
-    }
-
-    return null
-
+  return null;
 }

@@ -1,5 +1,1 @@
-export const FONTS = {
-
-
-
-}
+export const FONTS = {};

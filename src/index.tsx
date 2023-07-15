@@ -1,22 +1,21 @@
-import { LogBox } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
-import Provider from './provider'
-import Routes from './routes/index.routes'
+import { LogBox } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import Provider from "./provider";
+import Routes from "./routes/index.routes";
+import MovieProvider from "./provider/movie";
 
 export default function App() {
-    
-    LogBox.ignoreAllLogs()
+  LogBox.ignoreAllLogs();
 
-    return(
-
-        <NavigationContainer>
-            <Provider>
-                <StatusBar hidden/>
-                <Routes/>
-            </Provider>
-        </NavigationContainer>
-
-    )
-    
+  return (
+    <NavigationContainer>
+      <Provider>
+        <MovieProvider>
+          <StatusBar hidden />
+          <Routes />
+        </MovieProvider>
+      </Provider>
+    </NavigationContainer>
+  );
 }

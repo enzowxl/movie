@@ -1,5 +1,3 @@
-export default function EditProfileScreen({ route }: any ) {
-
-    return <></>
-    
+export default function EditProfileScreen({ route }: any) {
+  return <></>;
 }

@@ -1,44 +1,36 @@
-import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack"
-import MovieScreen from "../../screens/Auth/movieScreen"
-import { Animated } from "react-native"
-import EditProfileScreen from "../../screens/Auth/editProfileScreen"
-import ChangeLanguageScreen from "../../screens/Auth/changeLanguageScreen"
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from "@react-navigation/stack";
+import { Animated } from "react-native";
 
-export default function StackProfileRoute({ animatedStyle }: any ) {
+import EditProfileScreen from "../../screens/Auth/editProfileScreen";
+import ChangeLanguageScreen from "../../screens/Auth/changeLanguageScreen";
 
-    const Stack = createStackNavigator()
+export default function StackProfileRoute({ animatedStyle }: any) {
+  const Stack = createStackNavigator();
 
-    return (
+  return (
+    <Animated.View style={{ ...animatedStyle }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animationEnabled: true,
+          transitionSpec: {
+            open: { animation: "timing", config: { duration: 500 } },
+            close: { animation: "timing", config: { duration: 500 } },
+          },
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      >
+        <Stack.Screen name="EditProfile">
+          {(props) => <EditProfileScreen {...props} />}
+        </Stack.Screen>
 
-        <Animated.View style={{...animatedStyle}}>
-
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false,
-                    animationEnabled: true,
-                    transitionSpec: {
-                        open: { animation: 'timing', config: { duration: 500 } },
-                        close: { animation: 'timing', config: { duration: 500 } },
-                    },
-                    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-                }}
-            >
-
-                <Stack.Screen
-                    name="EditProfile"
-                >
-                    {(props) => <EditProfileScreen {...props} />}
-                </Stack.Screen>
-
-                <Stack.Screen
-                    name="ChangeLanguage"
-                >
-                    {(props) => <ChangeLanguageScreen {...props}/>}
-                </Stack.Screen>
-
-            </Stack.Navigator>
-
-        </Animated.View>
-
-    )
+        <Stack.Screen name="ChangeLanguage">
+          {(props) => <ChangeLanguageScreen {...props} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </Animated.View>
+  );
 }

@@ -1,5 +1,3 @@
-export default function ChangeLanguageScreen({ route }: any ) {
-
-    return <></>
-    
+export default function ChangeLanguageScreen({ route }: any) {
+  return <></>;
 }

@@ -1,46 +1,32 @@
-import React, {
-    ReactNode,
-    createContext,
-    useState,
-    useEffect
-} from 'react'
-
+import React, { ReactNode, createContext, useState, useEffect } from "react";
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 interface User {
-    info: {}
+  info: {};
 }
 
 export const AuthContext = createContext<{
-        user: User | null;
-        logged: boolean;
-    }>
-    ({
-        user: null,
-        logged: false,
-    });
- 
+  user: User | null;
+  logged: boolean;
+}>({
+  user: null,
+  logged: false,
+});
+
 export default function Provider({ children }: Props) {
+  const [user, updateUser] = useState<User | null>({ info: { name: "enzo" } });
 
-    const [user, updateUser] = useState<User | null>({info: {name: 'enzo'}})
-
-
-    return (
-
-        <AuthContext.Provider
-            value={{
-                user,
-                logged: !!user,
-            }}
-        >
-
-            {children}
-
-        </AuthContext.Provider>
-
-    )
-
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        logged: !!user,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
