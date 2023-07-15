@@ -14,10 +14,9 @@ export default function Recommendations({ data }: any) {
 
   const ItemList = (props: any) => {
     function navigationRecommendations() {
-      console.log("criar");
-      /*n.navigation("StackRecommendations", {
-        movieId: props.item.id
-      });*/
+      n.push("Movie", {
+        movieId: props.item.id,
+      });
     }
 
     return (

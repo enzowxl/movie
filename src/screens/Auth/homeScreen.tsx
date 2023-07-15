@@ -51,7 +51,9 @@ export default function HomeScreen() {
         <HeaderCenter text="HOME" />
 
         <Header.Right
-          onClick={() => {}}
+          onClick={() => {
+            n.navigate('StackSearch')
+          }}
           image={require("../../assets/Header/search.png")}
         />
       </Header.Root>

@@ -7,28 +7,40 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../../../constants";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Participation({ data }: any) {
+  const n = useNavigation<any>();
+
   const ItemList = (props: any) => {
+    function navigationParticipation() {
+      n.push("Movie", {
+        movieId: props.item.id,
+      });
+    }
+
     return (
-      <View
+      <TouchableOpacity
+        onPress={navigationParticipation}
         style={[
-          styles.cont1,
+          styles.cont,
           {
             marginLeft: data[0] === props.item ? 30 : 0,
             marginRight: props.index === data.length - 1 ? 30 : 10,
           },
         ]}
       >
-        <TouchableOpacity style={[styles.cont]}>
-          <Image
-            style={styles.img}
-            source={{
-              uri: `https://image.tmdb.org/t/p/original/66T5HymEPBtrwJHehEUlPjB2dec.jpg`,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+        <Image
+          style={styles.img}
+          source={{
+            uri: `https://image.tmdb.org/t/p/original/${
+              props.item.backdrop_path === null
+                ? props.item.poster_path
+                : props.item.backdrop_path
+            }`,
+          }}
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -43,6 +55,7 @@ export default function Participation({ data }: any) {
       <FlatList
         data={data}
         horizontal
+        showsHorizontalScrollIndicator={false}
         keyExtractor={(data) => data.id.toString()}
         renderItem={(props) => <ItemList {...props} />}
       />

@@ -7,8 +7,9 @@ import { Animated } from "react-native";
 import ListMoviesScreen from "../../screens/Auth/listMoviesScreen";
 import MovieScreen from "../../screens/Auth/movieScreen";
 import PersonScreen from "../../screens/Auth/personScreen";
+import SearchScreen from "../../screens/Auth/searchScreen";
 
-export default function StackListRoute({ animatedStyle, route }: any) {
+export default function StackSearchRoute({ animatedStyle, route }: any) {
   const params = route.params;
 
   const Stack = createStackNavigator();
@@ -28,14 +29,17 @@ export default function StackListRoute({ animatedStyle, route }: any) {
             CardStyleInterpolators.forRevealFromBottomAndroid,
         }}
       >
+        <Stack.Screen name="Search">
+          {(props) => <SearchScreen {...props} />}
+        </Stack.Screen>
         <Stack.Screen name="ListMovies">
-          {(props) => <ListMoviesScreen data={params?.data} {...props} />}
+          {(props) => <ListMoviesScreen {...props} />}
         </Stack.Screen>
         <Stack.Screen name="Movie">
-          {(props) => <MovieScreen movieId={params?.movieId} {...props} />}
+          {(props) => <MovieScreen {...props} />}
         </Stack.Screen>
         <Stack.Screen name="Person">
-          {(props) => <PersonScreen personId={params?.personId} {...props} />}
+          {(props) => <PersonScreen {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </Animated.View>

@@ -14,7 +14,7 @@ export default function Cast({ data }: any) {
 
   const ItemList = (props: any) => {
     function navigationPerson() {
-      n.navigate("Person", {
+      n.push("Person", {
         personId: props.item.id,
       });
     }

@@ -22,15 +22,16 @@ import MovieTitles from "../../components/Auth/MovieTitles";
 import MovieImage from "../../components/Auth/MovieImage";
 import { MovieContext } from "../../provider/movie";
 
-export default function MovieScreen({ movieId }: any) {
+export default function MovieScreen({ movieId, route }: any) {
+  const params = route.params;
 
-  const movieContext = useContext(MovieContext)
+  const movieContext = useContext(MovieContext);
 
   const { width } = useWindowDimensions();
 
   const [response, updateResponse] = useState<any>({});
-  const [cast, updateCast] = useState<any>();
-  const [recommendations, updateRecommendations] = useState<any>();
+  const [cast, updateCast] = useState<any>({});
+  const [recommendations, updateRecommendations] = useState<any>({});
   const [loading, updateLoading] = useState(true);
 
   const n = useNavigation<any>();
@@ -40,7 +41,9 @@ export default function MovieScreen({ movieId }: any) {
     (async () => {
       await api
         .request({
-          url: `movie/${movieId}?language=en-US`,
+          url: `movie/${
+            params?.movieId ? params?.movieId : movieId
+          }?language=${movieContext.language}`,
           method: "GET",
           headers: {
             accept: "application/json",
@@ -53,7 +56,9 @@ export default function MovieScreen({ movieId }: any) {
 
       await api
         .request({
-          url: `movie/${movieId}/credits?language=en-US`,
+          url: `movie/${
+            params?.movieId ? params?.movieId : movieId
+          }/credits?language=${movieContext.language}`,
           method: "GET",
           headers: {
             accept: "application/json",
@@ -66,7 +71,11 @@ export default function MovieScreen({ movieId }: any) {
 
       await api
         .request({
-          url: `movie/${movieId}/recommendations?language=${movieContext.language}&page=${movieContext.page}`,
+          url: `movie/${
+            params?.movieId ? params?.movieId : movieId
+          }/recommendations?language=${movieContext.language}&page=${
+            movieContext.page
+          }`,
           method: "GET",
           headers: {
             accept: "application/json",

@@ -7,11 +7,19 @@ import {
   Image,
 } from "react-native";
 import { COLORS } from "../../../constants";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MoviesList({ data }: any) {
+  const n = useNavigation<any>();
   const ItemList = (props: any) => {
+    function navigationMovie() {
+      n.push("Movie", {
+        movieId: props.item.id,
+      });
+    }
     return (
       <TouchableOpacity
+        onPress={navigationMovie}
         style={{
           marginBottom: props.index === data.length - 1 ? 100 : 30,
         }}

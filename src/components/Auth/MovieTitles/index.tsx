@@ -5,7 +5,7 @@ export default function MovieTitles({ response }: any) {
   return (
     <View style={styles.contText}>
       <Text style={[styles.txt, { width: 300 }]}>
-        {response?.original_title}
+        {response?.title}
       </Text>
 
       <Text

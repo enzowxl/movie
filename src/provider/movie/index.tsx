@@ -31,7 +31,7 @@ export const MovieContext = createContext<MovieProps>({
 
 export default function MovieProvider({ children }: Props) {
   const [time, updateTime] = useState("day");
-  const [language, updateLanguage] = useState("en-US");
+  const [language, updateLanguage] = useState("pt-BR");
   const [page, updatePage] = useState("1");
 
   return (

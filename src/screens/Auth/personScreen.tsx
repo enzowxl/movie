@@ -21,13 +21,14 @@ import PersonalInfo from "../../components/Auth/PersonalInfo";
 import PersonImage from "../../components/Auth/MovieImage";
 
 export default function PersonScreen({ personId, route }: any) {
-  const params = route.params
+  const params = route.params;
 
   const { width } = useWindowDimensions();
 
   const [response, updateResponse] = useState<any>();
-  const [loading, updateLoading] = useState(true);
+  const [participation, updateParticipation] = useState<any>();
   const [biographyPerson, updateBiographyPerson] = useState(false);
+  const [loading, updateLoading] = useState(true);
 
   const n = useNavigation<any>();
 
@@ -40,7 +41,9 @@ export default function PersonScreen({ personId, route }: any) {
     (async () => {
       await api
         .request({
-          url: `person/${personId ? personId : params?.personId}?language=en-US`,
+          url: `person/${
+            params?.personId ? params?.personId : personId
+          }?language=en-US`,
           method: "GET",
           headers: {
             accept: "application/json",
@@ -49,6 +52,21 @@ export default function PersonScreen({ personId, route }: any) {
         })
         .then(function (res) {
           updateResponse(res.data);
+        });
+
+      await api
+        .request({
+          url: `person/${
+            params?.personId ? params?.personId : personId
+          }/movie_credits`,
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${CONFIG.API_KEY}`,
+          },
+        })
+        .then(function (res) {
+          updateParticipation(res.data.cast);
         });
 
       updateLoading(false);
@@ -96,16 +114,7 @@ export default function PersonScreen({ personId, route }: any) {
 
         <PersonalInfo response={response} />
 
-        <Participation
-          data={[
-            { id: 1, name: "Robert Pattinson", subname: "Bruce Wayne" },
-            { id: 2, name: "Zoe Kravitz", subname: "Selina Kyle" },
-            { id: 3, name: "Paul Dano", subname: "Edward Nashton" },
-            { id: 4, name: "Paul Dano", subname: "Edward Nashton" },
-            { id: 5, name: "Paul Dano", subname: "Edward Nashton" },
-            { id: 6, name: "Paul Dano", subname: "Edward Nashton" },
-          ]}
-        />
+        <Participation data={participation} />
       </ScrollView>
     </View>
   );
