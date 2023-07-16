@@ -15,9 +15,10 @@ import { useNavigation } from "@react-navigation/native";
 interface ListProps {
   url: string;
   title: string;
+  page: boolean;
 }
 
-export default function List({ url, title }: ListProps) {
+export default function List({ url, title, page }: ListProps) {
   const n = useNavigation<any>();
 
   const [response, updateResponse] = useState<any>();
@@ -48,6 +49,7 @@ export default function List({ url, title }: ListProps) {
       data: {
         title: title,
         url: url,
+        page: page,
       },
     });
   }

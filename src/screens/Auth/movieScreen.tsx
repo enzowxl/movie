@@ -21,6 +21,7 @@ import Overview from "../../components/Auth/Overview";
 import MovieTitles from "../../components/Auth/MovieTitles";
 import MovieImage from "../../components/Auth/MovieImage";
 import { MovieContext } from "../../provider/movie";
+import Providers from "../../components/Auth/Providers";
 
 export default function MovieScreen({ movieId, route }: any) {
   const params = route.params;
@@ -32,6 +33,7 @@ export default function MovieScreen({ movieId, route }: any) {
   const [response, updateResponse] = useState<any>({});
   const [cast, updateCast] = useState<any>({});
   const [recommendations, updateRecommendations] = useState<any>({});
+  const [provider, updateProvider] = useState<any>({});
   const [loading, updateLoading] = useState(true);
 
   const n = useNavigation<any>();
@@ -41,9 +43,9 @@ export default function MovieScreen({ movieId, route }: any) {
     (async () => {
       await api
         .request({
-          url: `movie/${
-            params?.movieId ? params?.movieId : movieId
-          }?language=${movieContext.language}`,
+          url: `movie/${params?.movieId ? params?.movieId : movieId}?language=${
+            movieContext.language
+          }`,
           method: "GET",
           headers: {
             accept: "application/json",
@@ -86,6 +88,22 @@ export default function MovieScreen({ movieId, route }: any) {
           updateRecommendations(res.data.results);
         });
 
+      await api
+        .request({
+          url: `movie/${
+            params?.movieId ? params?.movieId : movieId
+          }/watch/providers`,
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${CONFIG.API_KEY}`,
+          },
+        })
+        .then(function (res) {
+          const locale = movieContext.language.split("-")[1];
+          updateProvider(res.data.results[locale]?.flatrate);
+        });
+
       updateLoading(false);
     })();
   }, [movieId]);
@@ -118,6 +136,10 @@ export default function MovieScreen({ movieId, route }: any) {
 
         {response?.genres?.length === 0 ? null : (
           <Genres data={response?.genres} />
+        )}
+
+        {provider === undefined ? null : (
+          <Providers data={provider} />
         )}
 
         {response?.overview?.length === 0 ? null : (

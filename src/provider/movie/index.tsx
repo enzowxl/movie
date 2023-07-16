@@ -14,16 +14,16 @@ interface Props {
 interface MovieProps {
   time: string;
   language: string;
-  page: string;
+  page: number;
   updateTime: Dispatch<SetStateAction<string>>;
   updateLanguage: Dispatch<SetStateAction<string>>;
-  updatePage: Dispatch<SetStateAction<string>>;
+  updatePage: Dispatch<SetStateAction<number>>;
 }
 
 export const MovieContext = createContext<MovieProps>({
   time: "day",
   language: "en-US",
-  page: "1",
+  page: 1,
   updateTime: () => {},
   updateLanguage: () => {},
   updatePage: () => {},
@@ -31,8 +31,8 @@ export const MovieContext = createContext<MovieProps>({
 
 export default function MovieProvider({ children }: Props) {
   const [time, updateTime] = useState("day");
-  const [language, updateLanguage] = useState("pt-BR");
-  const [page, updatePage] = useState("1");
+  const [language, updateLanguage] = useState("en-US");
+  const [page, updatePage] = useState(1);
 
   return (
     <MovieContext.Provider

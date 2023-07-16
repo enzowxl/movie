@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 30,
     paddingTop: 30,
+    marginBottom:20
   },
   contSinopse: {
     paddingHorizontal: 30,

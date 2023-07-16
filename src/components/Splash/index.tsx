@@ -26,5 +26,6 @@ const styles = StyleSheet.create({
 
   load: {
     width: 150,
+    height: 150
   },
 });

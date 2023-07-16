@@ -3,9 +3,37 @@ import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { COLORS } from "../../../constants";
 import ModalPhoto from "../Modals/ModalPhoto";
+import { Button } from "@rneui/themed";
+
+interface DrawerButtonProps {
+  onPress: () => void;
+  icon: any;
+  label: string;
+}
 
 export default function CustomDrawer({ navigation }: any) {
   const [photoVisible, updatePhotoVisible] = useState(false);
+
+  function DrawerButton({ onPress, icon, label }: DrawerButtonProps) {
+    return (
+      <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          height: 50,
+          marginBottom: 20,
+          alignItems: "center",
+        }}
+        onPress={onPress}
+      >
+        <Image
+          style={{ width: 30, height: 30, tintColor: COLORS.secondary }}
+          source={icon}
+        />
+
+        <Text style={styles.txt}>{label}</Text>
+      </TouchableOpacity>
+    );
+  }
 
   return (
     <DrawerContentScrollView
@@ -32,6 +60,30 @@ export default function CustomDrawer({ navigation }: any) {
           </TouchableOpacity>
           <Text style={styles.txt}>Name</Text>
         </View>
+        <View style={styles.items}>
+          <DrawerButton
+            onPress={() => {}}
+            label={"Genres"}
+            icon={require("../../../assets/User/genre.png")}
+          />
+          <DrawerButton
+            onPress={() => {}}
+            label={"WatchList"}
+            icon={require("../../../assets/User/file.png")}
+          />
+          <DrawerButton
+            onPress={() => {}}
+            label={"Favorites"}
+            icon={require("../../../assets/tabBar/heart.png")}
+          />
+          <View style={{ position: "absolute", bottom: 0 }}>
+            <DrawerButton
+              onPress={() => {}}
+              label={"Log Out"}
+              icon={require("../../../assets/User/exit.png")}
+            />
+          </View>
+        </View>
       </View>
     </DrawerContentScrollView>
   );
@@ -54,11 +106,15 @@ const styles = StyleSheet.create({
   user: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 50,
   },
   txt: {
     fontSize: 14,
     fontFamily: "Jost_600SemiBold",
     color: COLORS.white,
     marginHorizontal: 10,
+  },
+  items: {
+    flex: 1,
   },
 });

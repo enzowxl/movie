@@ -9,7 +9,7 @@ import {
 import { COLORS } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 
-export default function MoviesList({ data }: any) {
+export default function MoviesList({ data, page }: any) {
   const n = useNavigation<any>();
   const ItemList = (props: any) => {
     function navigationMovie() {
@@ -21,7 +21,11 @@ export default function MoviesList({ data }: any) {
       <TouchableOpacity
         onPress={navigationMovie}
         style={{
-          marginBottom: props.index === data.length - 1 ? 100 : 30,
+          marginBottom: page
+            ? props.index === data.length - 1
+              ? 100
+              : 30
+            : 30,
         }}
       >
         <Image

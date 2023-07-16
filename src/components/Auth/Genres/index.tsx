@@ -16,7 +16,7 @@ export default function Genres({ data }: any) {
 
   const n = useNavigation<any>();
 
-  const ItemList = ({ data: dataItem }: any) => {
+  const ItemList = (props: any) => {
     function navigateGenreScreen(dataButton: any) {
       const url = `discover/movie?include_adult=false&include_video=false&language=${movieContext.language}&page=${movieContext.page}&sort_by=popularity.desc&with_genres=${dataButton.id}`;
       n.navigate("ListMovies", {
@@ -29,15 +29,16 @@ export default function Genres({ data }: any) {
 
     return (
       <TouchableOpacity
-        onPress={() => navigateGenreScreen(dataItem)}
+        onPress={() => navigateGenreScreen(props.item)}
         style={[
           styles.cont,
           {
-            marginLeft: data[0] === dataItem ? 30 : 5,
+            marginLeft: data[0] === props.item ? 30 : 5,
+            marginRight: props.index === data.length - 1 ? 30 : 0
           },
         ]}
       >
-        <Text style={styles.txt}>{dataItem.name}</Text>
+        <Text style={styles.txt}>{props.item.name}</Text>
       </TouchableOpacity>
     );
   };
@@ -47,7 +48,7 @@ export default function Genres({ data }: any) {
       data={data}
       horizontal
       keyExtractor={(data) => data.id.toString()}
-      renderItem={({ item }) => <ItemList data={item} />}
+      renderItem={(props) => <ItemList {...props} />}
     />
   );
 }
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 10,
     borderRadius: 5,
-    marginTop: 20,
     marginBottom: 20,
   },
   txt: {

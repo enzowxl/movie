@@ -60,8 +60,7 @@ export default function DrawerRoute() {
           drawerStyle: {
             flex: 1,
             width: "65%",
-            paddingTop: 30,
-            padding: 20,
+            padding: 30,
             backgroundColor: "transparent",
           },
           sceneContainerStyle: {

@@ -34,7 +34,7 @@ export default function Images({ response }: any) {
             ? {
                 uri: `https://image.tmdb.org/t/p/original${response}`,
               }
-            : require("../../../assets/User/no-photo.png")
+            : require("../../../assets/tabBar/user-full.png")
         }
       />
     </View>

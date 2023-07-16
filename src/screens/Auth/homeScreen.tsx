@@ -25,8 +25,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MovieContext } from "../../provider/movie";
 
 export default function HomeScreen() {
-
-  const movieContext = useContext(MovieContext)
+  const movieContext = useContext(MovieContext);
 
   const n = useNavigation<any>();
 
@@ -52,7 +51,7 @@ export default function HomeScreen() {
 
         <Header.Right
           onClick={() => {
-            n.navigate('StackSearch')
+            n.navigate("StackSearch");
           }}
           image={require("../../assets/Header/search.png")}
         />
@@ -66,26 +65,31 @@ export default function HomeScreen() {
       >
         <View style={{ marginTop: 100, marginBottom: 60 }}>
           <List
+            page={false}
             title="Trends"
             url={`trending/movie/${movieContext.time}?language=${movieContext.language}`}
           />
 
           <List
+            page={true}
             title="Popular"
             url={`movie/popular?language=${movieContext.language}&page=${movieContext.page}`}
           />
 
           <List
+            page={true}
             title="In theaters"
             url={`movie/now_playing?language=${movieContext.language}&page=${movieContext.page}`}
           />
 
           <List
+            page={true}
             title="Upcoming"
             url={`movie/upcoming?language=${movieContext.language}&page=${movieContext.page}`}
           />
 
           <List
+            page={true}
             title="Top rated"
             url={`movie/top_rated?language=${movieContext.language}&page=${movieContext.page}`}
           />

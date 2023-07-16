@@ -90,8 +90,8 @@ export default function ListMoviesScreen({ data, route }: any) {
           alignItems: "center",
         }}
       >
-        <MoviesList data={response} />
-        <ButtonNextPage />
+        <MoviesList page={data.page} data={response} />
+        {data.page ? <ButtonNextPage /> : null}
       </View>
     </View>
   );

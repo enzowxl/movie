@@ -9,7 +9,7 @@ export default function CustomTab(props: any) {
 
   const { width } = useWindowDimensions();
   const height = 100;
-
+  const widthL = width + 1
   return (
     <View
       style={{
@@ -19,9 +19,9 @@ export default function CustomTab(props: any) {
         alignItems: "center",
       }}
     >
-      <Svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+      <Svg width={widthL} height={height} viewBox={`0 0 ${widthL} ${height}`}>
         <Path
-          d={`M0 0v${height}h${width}V0c0 22.091-17.909 40-40 40H40C17.909 40 0 22.091 0 0z`}
+          d={`M0 0v${height}h${widthL}V0c0 22.091-17.909 40-40 40H40C17.909 40 0 22.091 0 0z`}
           fill={COLORS.secondary}
         />
       </Svg>

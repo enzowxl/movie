@@ -18,7 +18,7 @@ import Recommendations from "../../components/Auth/Recommendations";
 import Participation from "../../components/Auth/Participations";
 import Biography from "../../components/Auth/Biography";
 import PersonalInfo from "../../components/Auth/PersonalInfo";
-import PersonImage from "../../components/Auth/MovieImage";
+import PersonImage from "../../components/Auth/PersonImage";
 
 export default function PersonScreen({ personId, route }: any) {
   const params = route.params;
@@ -71,7 +71,7 @@ export default function PersonScreen({ personId, route }: any) {
 
       updateLoading(false);
     })();
-  }, [personId || params?.personId]);
+  }, [personId]);
 
   if (loading) return <Splash />;
 
@@ -81,7 +81,6 @@ export default function PersonScreen({ personId, route }: any) {
         <Header.Left
           onClick={() => {
             n.goBack();
-            updateResponse("");
           }}
           image={require("../../assets/Header/previous-green.png")}
         />

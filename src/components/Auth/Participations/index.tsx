@@ -30,16 +30,28 @@ export default function Participation({ data }: any) {
           },
         ]}
       >
-        <Image
-          style={styles.img}
-          source={{
-            uri: `https://image.tmdb.org/t/p/original/${
-              props.item.backdrop_path === null
-                ? props.item.poster_path
-                : props.item.backdrop_path
-            }`,
-          }}
-        />
+        {props.item.backdrop_path === null &&
+        props.item.poster_path === null ? (
+          <Image
+            style={[styles.img, {
+              tintColor: COLORS.gray,
+              width:100,
+              height: 100,
+             }]}
+            source={require("../../../assets/User/no-photo.png")}
+          />
+        ) : (
+          <Image
+            style={styles.img}
+            source={{
+              uri: `https://image.tmdb.org/t/p/original/${
+                props.item.backdrop_path === null
+                  ? props.item.poster_path
+                  : props.item.backdrop_path
+              }`,
+            }}
+          />
+        )}
       </TouchableOpacity>
     );
   };
@@ -65,7 +77,12 @@ export default function Participation({ data }: any) {
 
 const styles = StyleSheet.create({
   cont: {
-    borderRadius: 300,
+    borderRadius: 10,
+    width: 230,
+    height: 130,
+    backgroundColor: COLORS.white02,
+    justifyContent:'center',
+    alignItems:'center'
   },
   txt: {
     fontSize: 20,

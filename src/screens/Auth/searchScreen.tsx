@@ -11,12 +11,12 @@ import {
   Jost_700Bold,
 } from "@expo-google-fonts/jost";
 
-
 import ListSearch from "../../components/Auth/ListSearch";
 import Splash from "../../components/Splash";
+import SearchInfo from "../../components/Auth/SearchInfo";
 
 export default function SearchScreen({ route }: any) {
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<any>();
   const [search, updateSearch] = useState("");
   const [response, updateResponse] = useState<any>({});
   const [loading, updateLoading] = useState(true);
@@ -55,7 +55,7 @@ export default function SearchScreen({ route }: any) {
       <Header.Root backGround>
         <Header.Left
           onClick={() => {
-            inputRef?.current.blur();
+            inputRef?.current.focus();
           }}
           image={require("../../assets/Header/search.png")}
         />
@@ -78,6 +78,7 @@ export default function SearchScreen({ route }: any) {
           <ListSearch data={response} />
         </View>
       )}
+      {!loading ? <SearchInfo /> : null}
     </View>
   );
 }
