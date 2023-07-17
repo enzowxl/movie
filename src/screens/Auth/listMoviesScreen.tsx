@@ -74,13 +74,8 @@ export default function ListMoviesScreen({ data, route }: any) {
           }}
           image={require("../../assets/Header/previous-green.png")}
         />
-
         <HeaderCenter text={title?.toUpperCase()} />
-
-        <Header.Right
-          onClick={() => {}}
-          image={require("../../assets/Header/search.png")}
-        />
+        <View style={{ width: 30 }} />
       </Header.Root>
 
       <View
@@ -90,8 +85,11 @@ export default function ListMoviesScreen({ data, route }: any) {
           alignItems: "center",
         }}
       >
-        <MoviesList page={data.page} data={response} />
-        {data.page ? <ButtonNextPage /> : null}
+        <MoviesList
+          page={data?.page ? data?.page : params?.data?.page}
+          data={response}
+        />
+        {data?.page || params?.data?.page ? <ButtonNextPage /> : null}
       </View>
     </View>
   );

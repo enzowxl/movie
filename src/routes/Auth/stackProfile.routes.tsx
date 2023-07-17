@@ -4,8 +4,8 @@ import {
 } from "@react-navigation/stack";
 import { Animated } from "react-native";
 
-import EditProfileScreen from "../../screens/Auth/editProfileScreen";
-import ChangeLanguageScreen from "../../screens/Auth/changeLanguageScreen";
+import EditProfileScreen from "../../screens/Auth/Profile/editProfileScreen";
+import ChangeLanguageScreen from "../../screens/Auth/Profile/changeLanguageScreen";
 
 export default function StackProfileRoute({ animatedStyle }: any) {
   const Stack = createStackNavigator();

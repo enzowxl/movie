@@ -3,7 +3,7 @@ import { Animated, Image, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../../screens/Auth/homeScreen";
-import ProfileScreen from "../../screens/Auth/profileScreen";
+import ProfileScreen from "../../screens/Auth/Profile/profileScreen";
 import CustomTab from "../../components/Auth/Tab";
 import CustomTabButton from "../../components/Auth/Tab/TabButton";
 import TabBarIcon from "../../components/Auth/Tab/TabIcon";

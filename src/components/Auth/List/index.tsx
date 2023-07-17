@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { COLORS } from "../../../constants";
+import { COLORS, ITEMS } from "../../../constants";
 import { CONFIG, api } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 
@@ -45,7 +45,6 @@ export default function List({ url, title, page }: ListProps) {
 
   function navigateMoviesList() {
     n.navigate("StackList", {
-      screen: "ListMovies",
       data: {
         title: title,
         url: url,
@@ -57,7 +56,6 @@ export default function List({ url, title, page }: ListProps) {
   const Item = (props: any) => {
     const navigateMovie = () => {
       n.navigate("Stack", {
-        screen: "Movie",
         movieId: props.item.id,
       });
     };
@@ -68,13 +66,11 @@ export default function List({ url, title, page }: ListProps) {
           source={{
             uri: `https://image.tmdb.org/t/p/original/${props.item.poster_path}`,
           }}
-          style={[
-            styles.itemCont,
-            {
-              marginLeft: response[0].id === props.item.id ? 30 : 0,
-              marginRight: props.index === response.length - 1 ? 30 : 10,
-            },
-          ]}
+          style={{
+            marginLeft: response[0].id === props.item.id ? 30 : 0,
+            marginRight: props.index === response.length - 1 ? 30 : 10,
+            ...ITEMS.movieCard,
+          }}
         />
       </TouchableOpacity>
     );
@@ -125,11 +121,6 @@ const styles = StyleSheet.create({
   },
   cont: {
     marginBottom: 30,
-  },
-  itemCont: {
-    width: 130,
-    height: 170,
-    backgroundColor: COLORS.white02,
   },
   contText: {
     justifyContent: "space-between",

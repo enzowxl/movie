@@ -4,6 +4,7 @@ import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { COLORS } from "../../../constants";
 import ModalPhoto from "../Modals/ModalPhoto";
 import { Button } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
 
 interface DrawerButtonProps {
   onPress: () => void;
@@ -12,6 +13,8 @@ interface DrawerButtonProps {
 }
 
 export default function CustomDrawer({ navigation }: any) {
+  const n = useNavigation<any>();
+
   const [photoVisible, updatePhotoVisible] = useState(false);
 
   function DrawerButton({ onPress, icon, label }: DrawerButtonProps) {
@@ -62,17 +65,29 @@ export default function CustomDrawer({ navigation }: any) {
         </View>
         <View style={styles.items}>
           <DrawerButton
-            onPress={() => {}}
+            onPress={() => {
+              n.navigate("StackGenres", {
+                screen: "Genres",
+              });
+            }}
             label={"Genres"}
             icon={require("../../../assets/User/genre.png")}
           />
           <DrawerButton
-            onPress={() => {}}
+            onPress={() => {
+              n.navigate("StackWatchList", {
+                screen: "WatchList",
+              });
+            }}
             label={"WatchList"}
             icon={require("../../../assets/User/file.png")}
           />
           <DrawerButton
-            onPress={() => {}}
+            onPress={() => {
+              n.navigate("StackFavorites", {
+                screen: "Favorites",
+              });
+            }}
             label={"Favorites"}
             icon={require("../../../assets/tabBar/heart.png")}
           />

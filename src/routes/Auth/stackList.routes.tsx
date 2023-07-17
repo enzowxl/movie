@@ -16,7 +16,6 @@ export default function StackListRoute({ animatedStyle, route }: any) {
   return (
     <Animated.View style={{ ...animatedStyle }}>
       <Stack.Navigator
-        initialRouteName={params?.screen}
         screenOptions={{
           headerShown: false,
           animationEnabled: true,

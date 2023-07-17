@@ -4,11 +4,11 @@ import {
 } from "@react-navigation/stack";
 import { Animated } from "react-native";
 
+import ListMoviesScreen from "../../screens/Auth/listMoviesScreen";
 import MovieScreen from "../../screens/Auth/movieScreen";
 import PersonScreen from "../../screens/Auth/personScreen";
-import ListMoviesScreen from "../../screens/Auth/listMoviesScreen";
-
-export default function StackRoute({ animatedStyle, route }: any) {
+import GenresScreen from "../../screens/Auth/Drawer/genresScreen";
+export default function StackGenresRoute({ animatedStyle, route }: any) {
   const params = route.params;
 
   const Stack = createStackNavigator();
@@ -27,16 +27,17 @@ export default function StackRoute({ animatedStyle, route }: any) {
             CardStyleInterpolators.forRevealFromBottomAndroid,
         }}
       >
+        <Stack.Screen name="Genres">
+          {(props) => <GenresScreen {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="ListMovies">
+          {(props) => <ListMoviesScreen data={params?.data} {...props} />}
+        </Stack.Screen>
         <Stack.Screen name="Movie">
           {(props) => <MovieScreen movieId={params?.movieId} {...props} />}
         </Stack.Screen>
-
         <Stack.Screen name="Person">
           {(props) => <PersonScreen personId={params?.personId} {...props} />}
-        </Stack.Screen>
-
-        <Stack.Screen name="ListMovies">
-          {(props) => <ListMoviesScreen data={params?.data} {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </Animated.View>

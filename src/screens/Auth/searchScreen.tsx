@@ -1,6 +1,12 @@
-import { View, StyleSheet, Text, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { COLORS, CONFIG, api } from "../../constants";
-import { Header } from "../../components/Auth/Header";
 import { Input } from "@rneui/themed";
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { MovieContext } from "../../provider/movie";
@@ -14,9 +20,9 @@ import {
 import ListSearch from "../../components/Auth/ListSearch";
 import Splash from "../../components/Splash";
 import SearchInfo from "../../components/Auth/SearchInfo";
+import InputSearch from "../../components/Auth/InputSearch";
 
 export default function SearchScreen({ route }: any) {
-  const inputRef = useRef<any>();
   const [search, updateSearch] = useState("");
   const [response, updateResponse] = useState<any>({});
   const [loading, updateLoading] = useState(true);
@@ -52,33 +58,15 @@ export default function SearchScreen({ route }: any) {
 
   return (
     <View style={styles.cont}>
-      <Header.Root backGround>
-        <Header.Left
-          onClick={() => {
-            inputRef?.current.focus();
-          }}
-          image={require("../../assets/Header/search.png")}
-        />
-
-        <Input
-          ref={inputRef}
-          placeholder="Search movie"
-          value={search}
-          onChangeText={(t) => updateSearch(t)}
-          placeholderTextColor={COLORS.gray}
-          inputContainerStyle={styles.inputCont}
-          inputStyle={styles.inputStyle}
-          containerStyle={styles.contStyle}
-        />
-      </Header.Root>
+      <InputSearch update={updateSearch} value={search} />
       {loading ? (
         <Splash />
       ) : (
-        <View style={{ marginTop: 100 }}>
+        <View style={{ marginTop: 40 }}>
           <ListSearch data={response} />
         </View>
       )}
-      {!loading ? <SearchInfo /> : null}
+      {!loading && search.length === 0 ? <SearchInfo /> : null}
     </View>
   );
 }
@@ -87,21 +75,5 @@ const styles = StyleSheet.create({
   cont: {
     flex: 1,
     backgroundColor: COLORS.primary,
-  },
-  inputStyle: {
-    borderBottomWidth: 0,
-    fontFamily: "Jost_700Bold",
-    textAlign: "left",
-    color: COLORS.white,
-    fontSize: 16,
-    paddingHorizontal: 5,
-  },
-  inputCont: {
-    borderBottomWidth: 1,
-    borderColor: COLORS.secondary,
-  },
-  contStyle: {
-    width: 300,
-    height: 50,
   },
 });

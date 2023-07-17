@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { COLORS } from "../../../constants";
+import { COLORS, ITEMS } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 
 export default function MoviesList({ data, page }: any) {
@@ -32,7 +32,7 @@ export default function MoviesList({ data, page }: any) {
           source={{
             uri: `https://image.tmdb.org/t/p/original/${props.item.poster_path}`,
           }}
-          style={styles.item}
+          style={[styles.item, { ...ITEMS.movieCard }]}
         />
       </TouchableOpacity>
     );
@@ -51,9 +51,6 @@ export default function MoviesList({ data, page }: any) {
 
 const styles = StyleSheet.create({
   item: {
-    width: 130,
-    height: 170,
-    backgroundColor: COLORS.white02,
     marginHorizontal: 30,
   },
 });

@@ -44,7 +44,7 @@ export default function Providers({ data }: any) {
 
   return (
     <View style={{ marginBottom: 20 }}>
-      <Text style={styles.txt}>Providers</Text>
+      <Text style={styles.txt}>Watch In</Text>
 
       <FlatList
         data={data}

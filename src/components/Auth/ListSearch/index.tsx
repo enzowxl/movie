@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { COLORS } from "../../../constants";
+import { COLORS, ITEMS } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 
 export default function ListSearch({ data }: any) {
@@ -20,10 +20,13 @@ export default function ListSearch({ data }: any) {
     }
 
     return (
-      <TouchableOpacity style={styles.cont} onPress={navigationMovie}>
+      <TouchableOpacity
+        style={[styles.cont, { ...ITEMS.movieCard }]}
+        onPress={navigationMovie}
+      >
         {props.item.poster_path ? (
           <Image
-            style={styles.img}
+            style={{ ...ITEMS.movieCard }}
             source={{
               uri: `https://image.tmdb.org/t/p/original/${props.item.poster_path}`,
             }}
@@ -31,21 +34,17 @@ export default function ListSearch({ data }: any) {
         ) : (
           <View
             style={{
-              width: 130,
-              height: 170,
+              ...ITEMS.movieCard,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
             <Image
-              style={[
-                styles.img,
-                {
-                  width: 100,
-                  height: 100,
-                  tintColor: COLORS.gray,
-                },
-              ]}
+              style={{
+                width: 100,
+                height: 100,
+                tintColor: COLORS.gray,
+              }}
               source={require("../../../assets/User/no-photo.png")}
             />
           </View>
@@ -78,9 +77,6 @@ export default function ListSearch({ data }: any) {
 
 const styles = StyleSheet.create({
   cont: {
-    width: 130,
-    height: 170,
-    backgroundColor: COLORS.white02,
     marginLeft: 30,
     marginBottom: 30,
     justifyContent: "space-between",
@@ -95,9 +91,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 5,
     textAlign: "center",
-  },
-  img: {
-    width: 130,
-    height: 170,
   },
 });

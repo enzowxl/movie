@@ -19,6 +19,9 @@ import StackProfileRoute from "./stackProfile.routes";
 import Splash from "../../components/Splash";
 import StackListRoute from "./stackList.routes";
 import StackSearchRoute from "./stackSearch.routes";
+import StackGenresRoute from "./stackGenres.routes";
+import StackFavoritesRoute from "./stackFavorites.routes";
+import StackWatchListRoute from "./stackWatchList.routes";
 
 export default function DrawerRoute() {
   const [fontLoaded] = useFonts({
@@ -109,6 +112,24 @@ export default function DrawerRoute() {
         <Drawer.Screen name="StackSearch">
           {(props) => (
             <StackSearchRoute animatedStyle={animatedStyle} {...props} />
+          )}
+        </Drawer.Screen>
+
+        <Drawer.Screen name="StackGenres">
+          {(props) => (
+            <StackGenresRoute animatedStyle={animatedStyle} {...props} />
+          )}
+        </Drawer.Screen>
+
+        <Drawer.Screen name="StackWatchList">
+          {(props) => (
+            <StackWatchListRoute animatedStyle={animatedStyle} {...props} />
+          )}
+        </Drawer.Screen>
+
+        <Drawer.Screen name="StackFavorites">
+          {(props) => (
+            <StackFavoritesRoute animatedStyle={animatedStyle} {...props} />
           )}
         </Drawer.Screen>
 

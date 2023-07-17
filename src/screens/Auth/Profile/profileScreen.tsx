@@ -15,16 +15,16 @@ import {
   Jost_700Bold,
 } from "@expo-google-fonts/jost";
 
-import { COLORS } from "../../constants";
+import { COLORS } from "../../../constants";
 
-import { Header } from "../../components/Auth/Header";
-import Splash from "../../components/Splash";
-import HeaderCenter from "../../components/Auth/Header/HeaderCenter";
+import { Header } from "../../../components/Auth/Header";
+import Splash from "../../../components/Splash";
+import HeaderCenter from "../../../components/Auth/Header/HeaderCenter";
 import { useNavigation } from "@react-navigation/native";
-import UserContent from "../../components/Auth/ProfileUser";
-import Favorite from "../../components/Auth/ProfileFavorites";
-import ModalOptions from "../../components/Auth/Modals/ModalOptions";
-import ModalPhoto from "../../components/Auth/Modals/ModalPhoto";
+import UserContent from "../../../components/Auth/ProfileUser";
+import Favorite from "../../../components/Auth/ProfileFavorites";
+import ModalOptions from "../../../components/Auth/Modals/ModalOptions";
+import ModalPhoto from "../../../components/Auth/Modals/ModalPhoto";
 
 export default function ProfileScreen() {
   const [dotsVisible, updateDotsVisible] = useState(false);
@@ -50,7 +50,7 @@ export default function ProfileScreen() {
       )}
       {photoVisible && (
         <ModalPhoto
-          image={require("../../assets/User/photo.png")}
+          image={require("../../../assets/User/photo.png")}
           visible={photoVisible}
           updateVisible={() => updatePhotoVisible(!photoVisible)}
         />
@@ -60,14 +60,14 @@ export default function ProfileScreen() {
           onClick={() => {
             n.openDrawer();
           }}
-          image={require("../../assets/Header/menu.png")}
+          image={require("../../../assets/Header/menu.png")}
         />
 
         <HeaderCenter text="PROFILE" />
 
         <Header.Right
           onClick={() => updateDotsVisible(true)}
-          image={require("../../assets/Header/dots.png")}
+          image={require("../../../assets/Header/dots.png")}
         />
       </Header.Root>
 
@@ -81,19 +81,19 @@ export default function ProfileScreen() {
           <UserContent updateVisible={() => updatePhotoVisible(true)} />
 
           <Favorite
-            image={require("../../assets/User/movie.png")}
+            image={require("../../../assets/User/movie.png")}
             title={"Movie"}
             response={"none"}
           />
 
           <Favorite
-            image={require("../../assets/User/genre.png")}
+            image={require("../../../assets/User/genre.png")}
             title={"Genre"}
             response={"none"}
           />
 
           <Favorite
-            image={require("../../assets/User/actor.png")}
+            image={require("../../../assets/User/actor.png")}
             title={"Actor"}
             response={"none"}
           />

@@ -138,13 +138,11 @@ export default function MovieScreen({ movieId, route }: any) {
           <Genres data={response?.genres} />
         )}
 
-        {provider === undefined ? null : (
-          <Providers data={provider} />
-        )}
-
         {response?.overview?.length === 0 ? null : (
           <Overview response={response} />
         )}
+
+        {provider === undefined ? null : <Providers data={provider} />}
 
         {cast?.length === 0 ? null : <Cast data={cast} />}
 
@@ -160,9 +158,6 @@ const styles = StyleSheet.create({
   cont: {
     flex: 1,
     backgroundColor: COLORS.primary,
-  },
-  img: {
-    height: "60%",
   },
   cont2: {
     position: "absolute",
