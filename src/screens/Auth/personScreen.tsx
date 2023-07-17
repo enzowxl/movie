@@ -8,7 +8,6 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Header } from "../../components/Auth/Header";
 import { COLORS, CONFIG, api } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
