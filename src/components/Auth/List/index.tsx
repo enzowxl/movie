@@ -103,7 +103,7 @@ export default function List({ url, title, page }: ListProps) {
           data={response}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(data) => data.id.toString()}
           renderItem={(props) => <Item {...props} />}
         />
       )}

@@ -65,7 +65,6 @@ export default function ListSearch({ data }: any) {
       </TouchableOpacity>
     );
   }
-  //{ fontFamily: "Jost_400Regular", fontSize: 14 }
   return (
     <FlatList
       data={data}

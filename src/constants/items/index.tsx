@@ -6,4 +6,9 @@ export const ITEMS = {
     height: 170,
     backgroundColor: COLORS.white02,
   },
+  genreCard: {
+    width: 170,
+    height: 100,
+    backgroundColor: COLORS.white02,
+  }
 };

@@ -21,6 +21,7 @@ import ListSearch from "../../components/Auth/ListSearch";
 import Splash from "../../components/Splash";
 import SearchInfo from "../../components/Auth/SearchInfo";
 import InputSearch from "../../components/Auth/InputSearch";
+import { Header } from "../../components/Auth/Header";
 
 export default function SearchScreen({ route }: any) {
   const [search, updateSearch] = useState("");
@@ -58,13 +59,13 @@ export default function SearchScreen({ route }: any) {
 
   return (
     <View style={styles.cont}>
+
       <InputSearch update={updateSearch} value={search} />
+
       {loading ? (
         <Splash />
       ) : (
-        <View style={{ marginTop: 40 }}>
           <ListSearch data={response} />
-        </View>
       )}
       {!loading && search.length === 0 ? <SearchInfo /> : null}
     </View>

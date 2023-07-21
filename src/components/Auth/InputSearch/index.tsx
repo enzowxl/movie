@@ -32,10 +32,8 @@ export default function InputSearch({ update, value }: any) {
 
 const styles = StyleSheet.create({
   inputview: {
-    paddingHorizontal: 30,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30,
     zIndex: 100,
   },
   inputStyle: {
@@ -44,14 +42,14 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: COLORS.white,
     fontSize: 16,
-    paddingHorizontal: 5,
     paddingLeft: 40,
   },
   inputCont: {
     borderWidth: 1,
     borderColor: COLORS.secondary,
     borderRadius: 300,
-    padding: 5,
+    padding: 2,
+    marginTop:30
   },
   contStyle: {
     width: 330,

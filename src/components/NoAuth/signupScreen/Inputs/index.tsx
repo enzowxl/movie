@@ -57,7 +57,7 @@ export default function SignUpInputs(props: InputProps) {
             style={{ position: "absolute", right: 10 }}
           >
             <Image
-              style={{ width: 20, height: 20 }}
+              style={{ width: 20, height: 20, tintColor: COLORS.gray }}
               source={require("../../../../assets/signupScreen/not-view.png")}
             />
           </TouchableOpacity>
@@ -90,6 +90,7 @@ export default function SignUpInputs(props: InputProps) {
               style={{
                 width: 20,
                 height: 20,
+                tintColor: COLORS.gray,
               }}
               source={require("../../../../assets/signupScreen/not-view.png")}
             />
@@ -136,5 +137,6 @@ const styles = StyleSheet.create({
     height: 20,
     position: "absolute",
     left: 10,
+    tintColor: COLORS.gray,
   },
 });

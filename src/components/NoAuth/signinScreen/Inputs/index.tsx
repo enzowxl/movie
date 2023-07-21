@@ -22,6 +22,7 @@ export default function SignInInputs(props: InputProps) {
               height: 20,
               position: "absolute",
               left: 10,
+              tintColor: COLORS.gray,
             }}
             source={require("../../../../assets/signinScreen/email.png")}
           />
@@ -62,6 +63,7 @@ export default function SignInInputs(props: InputProps) {
               style={{
                 width: 20,
                 height: 20,
+                tintColor: COLORS.gray,
               }}
               source={require("../../../../assets/signinScreen/not-view.png")}
             />
@@ -74,6 +76,7 @@ export default function SignInInputs(props: InputProps) {
               height: 20,
               position: "absolute",
               left: 10,
+              tintColor: COLORS.gray,
             }}
             source={require("../../../../assets/signinScreen/lock.png")}
           />
