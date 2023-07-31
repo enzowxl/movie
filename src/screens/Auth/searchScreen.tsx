@@ -51,7 +51,8 @@ export default function SearchScreen({ route }: any) {
         .then(function (res) {
           updateResponse(res.data.results);
           updateLoading(false);
-        });
+        })
+        .catch((e) => console.log(e));
     })();
   }, [search]);
 
@@ -59,13 +60,12 @@ export default function SearchScreen({ route }: any) {
 
   return (
     <View style={styles.cont}>
-
       <InputSearch update={updateSearch} value={search} />
 
       {loading ? (
         <Splash />
-      ) : (
-          <ListSearch data={response} />
+      ) : search.length === 0 ? null : (
+        <ListSearch data={response} />
       )}
       {!loading && search.length === 0 ? <SearchInfo /> : null}
     </View>

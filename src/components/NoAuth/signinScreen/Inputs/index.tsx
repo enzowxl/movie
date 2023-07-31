@@ -1,16 +1,18 @@
 import { Image, TouchableOpacity } from "react-native";
 import { Input } from "@rneui/themed";
 import { COLORS } from "../../../../constants";
+import { InputSignInProps } from "../../../../types/types";
+import { useState } from 'react'
 
-interface InputProps {
-  email: string;
-  password: string;
-  updateEmail: any;
-  updatePassword: any;
-}
+export default function SignInInputs(props: InputSignInProps) {
 
-export default function SignInInputs(props: InputProps) {
-  function viewPassword() {}
+  const [viewPass, updateViewPass] = useState(true)
+
+  function viewPassword() {
+
+    updateViewPass(!viewPass)
+
+  }
 
   return (
     <>
@@ -51,6 +53,7 @@ export default function SignInInputs(props: InputProps) {
       />
 
       <Input
+        secureTextEntry={viewPass}
         rightIcon={
           <TouchableOpacity
             onPress={viewPassword}
@@ -60,12 +63,14 @@ export default function SignInInputs(props: InputProps) {
             }}
           >
             <Image
-              style={{
-                width: 20,
-                height: 20,
-                tintColor: COLORS.gray,
-              }}
-              source={require("../../../../assets/signinScreen/not-view.png")}
+              style={{ width: 20, height: 20, tintColor: COLORS.gray }}
+              source={
+                viewPass
+                  ?
+                  require("../../../../assets/signupScreen/view.png")
+                  :
+                  require("../../../../assets/signupScreen/not-view.png")
+              }
             />
           </TouchableOpacity>
         }

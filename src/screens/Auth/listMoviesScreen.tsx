@@ -57,7 +57,8 @@ export default function ListMoviesScreen({ data, route }: any) {
         .then(function (res) {
           updateResponse(res.data.results);
           updateLoading(false);
-        });
+        })
+        .catch((e) => console.log(e));
     })();
   }, [data]);
 

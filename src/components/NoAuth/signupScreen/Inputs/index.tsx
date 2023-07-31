@@ -1,20 +1,18 @@
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Input } from "@rneui/themed";
 import { COLORS } from "../../../../constants";
+import { InputSignUpProps } from "../../../../types/types";
+import { useState } from 'react'
 
-interface InputProps {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  updateUsername: any;
-  updateEmail: any;
-  updatePassword: any;
-  updateConfirmPassword: any;
-}
+export default function SignUpInputs(props: InputSignUpProps) {
 
-export default function SignUpInputs(props: InputProps) {
-  function viewPassword() {}
+  const [viewPass, updateViewPass] = useState(true)
+
+  function viewPassword() {
+
+    updateViewPass(!viewPass)
+
+  }
 
   return (
     <>
@@ -51,6 +49,7 @@ export default function SignUpInputs(props: InputProps) {
       />
 
       <Input
+        secureTextEntry={viewPass}
         rightIcon={
           <TouchableOpacity
             onPress={viewPassword}
@@ -58,7 +57,13 @@ export default function SignUpInputs(props: InputProps) {
           >
             <Image
               style={{ width: 20, height: 20, tintColor: COLORS.gray }}
-              source={require("../../../../assets/signupScreen/not-view.png")}
+              source={
+                viewPass
+                  ?
+                  require("../../../../assets/signupScreen/view.png")
+                  :
+                  require("../../../../assets/signupScreen/not-view.png")
+              }
             />
           </TouchableOpacity>
         }
@@ -78,6 +83,7 @@ export default function SignUpInputs(props: InputProps) {
       />
 
       <Input
+        secureTextEntry={viewPass}
         rightIcon={
           <TouchableOpacity
             onPress={viewPassword}
@@ -87,12 +93,14 @@ export default function SignUpInputs(props: InputProps) {
             }}
           >
             <Image
-              style={{
-                width: 20,
-                height: 20,
-                tintColor: COLORS.gray,
-              }}
-              source={require("../../../../assets/signupScreen/not-view.png")}
+              style={{ width: 20, height: 20, tintColor: COLORS.gray }}
+              source={
+                viewPass
+                  ?
+                  require("../../../../assets/signupScreen/view.png")
+                  :
+                  require("../../../../assets/signupScreen/not-view.png")
+              }
             />
           </TouchableOpacity>
         }

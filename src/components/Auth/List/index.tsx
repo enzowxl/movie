@@ -39,7 +39,8 @@ export default function List({ url, title, page }: ListProps) {
         .then(function (res) {
           updateResponse(res.data.results);
           updateLoading(false);
-        });
+        })
+        .catch((e) => console.log(e));
     })();
   }, []);
 

@@ -1,9 +1,24 @@
+import { useContext } from 'react'
 import { Button } from "@rneui/themed";
 import { COLORS } from "../../../../constants";
+import { AuthContext } from "../../../../provider";
+import { UserSignUpProps } from '../../../../types/types';
 
-export default function SignUpButton() {
+export default function SignUpButton({ username, email, password, confirmPassword }: UserSignUpProps) {
+
+  const { signUp } = useContext(AuthContext)
+
   return (
     <Button
+      onPress={() => signUp(
+        {
+          username,
+          email,
+          password,
+          confirmPassword
+        }
+      )
+      }
       title="CONTINUE"
       containerStyle={{
         borderRadius: 25,

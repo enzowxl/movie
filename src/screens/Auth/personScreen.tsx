@@ -51,7 +51,8 @@ export default function PersonScreen({ personId, route }: any) {
         })
         .then(function (res) {
           updateResponse(res.data);
-        });
+        })
+        .catch((e) => console.log(e));
 
       await api
         .request({
@@ -66,7 +67,8 @@ export default function PersonScreen({ personId, route }: any) {
         })
         .then(function (res) {
           updateParticipation(res.data.cast);
-        });
+        })
+        .catch((e) => console.log(e));
 
       updateLoading(false);
     })();

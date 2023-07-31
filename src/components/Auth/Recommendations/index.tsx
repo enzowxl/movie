@@ -23,7 +23,7 @@ export default function Recommendations({ data }: any) {
       <TouchableOpacity
         onPress={navigationRecommendations}
         style={[
-          styles.cont1,
+          styles.cont,
           {
             marginLeft: data[0] === props.item ? 30 : 0,
             marginRight: props.index === data.length - 1 ? 30 : 10,

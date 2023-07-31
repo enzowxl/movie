@@ -18,7 +18,6 @@ import Movie from "../../components/NoAuth/signinScreen/Movie";
 import Splash from "../../components/Splash";
 import SignUpInputs from "../../components/NoAuth/signupScreen/Inputs";
 import SignUpButton from "../../components/NoAuth/signupScreen/Button";
-import SignUpButtonPhoto from "../../components/NoAuth/signupScreen/ButtonPhoto";
 import { COLORS } from "../../constants";
 
 export default function SignUpScreen() {
@@ -49,7 +48,7 @@ export default function SignUpScreen() {
       <Movie />
 
       <View style={[styles.cont2, { width }]}>
-        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.title}>Sign Up</Text>
 
         <SignUpInputs
           username={username}
@@ -62,9 +61,12 @@ export default function SignUpScreen() {
           updateConfirmPassword={updateConfirmPassword}
         />
 
-        <SignUpButtonPhoto />
-
-        <SignUpButton />
+        <SignUpButton
+          username={username}
+          email={email}
+          password={password}
+          confirmPassword={confirmPassword}
+        />
 
         <TouchableOpacity onPress={navigateSignIn}>
           <Text style={styles.subtitle2}>

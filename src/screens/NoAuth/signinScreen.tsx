@@ -62,7 +62,10 @@ export default function SignInScreen() {
           <Text style={styles.subtitle}>Forgot password?</Text>
         </TouchableOpacity>
 
-        <SignInButton />
+        <SignInButton
+          email={email}
+          password={password}
+        />
 
         <TouchableOpacity onPress={navigateSignUp}>
           <Text style={styles.subtitle2}>

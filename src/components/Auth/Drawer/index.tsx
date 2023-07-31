@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { COLORS } from "../../../constants";
 import ModalPhoto from "../Modals/ModalPhoto";
 import { Button } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../../provider";
 
 interface DrawerButtonProps {
   onPress: () => void;
@@ -14,6 +15,8 @@ interface DrawerButtonProps {
 
 export default function CustomDrawer({ navigation }: any) {
   const n = useNavigation<any>();
+
+  const { user } = useContext(AuthContext)
 
   const [photoVisible, updatePhotoVisible] = useState(false);
 
@@ -61,7 +64,7 @@ export default function CustomDrawer({ navigation }: any) {
               source={require("../../../assets/User/photo.png")}
             />
           </TouchableOpacity>
-          <Text style={styles.txt}>Name</Text>
+          <Text style={styles.txt}>{user?.name}</Text>
         </View>
         <View style={styles.items}>
           <DrawerButton

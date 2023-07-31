@@ -1,7 +1,12 @@
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { COLORS } from "../../../constants";
+import { useContext } from 'react'
+import { AuthContext } from "../../../provider";
 
 export default function UserContent({ updateVisible }: any) {
+
+  const { user } = useContext(AuthContext)
+
   return (
     <View style={styles.cont}>
       <TouchableOpacity onPress={updateVisible} style={{ borderRadius: 300 }}>
@@ -11,7 +16,7 @@ export default function UserContent({ updateVisible }: any) {
         />
       </TouchableOpacity>
 
-      <Text style={styles.txt}>Name</Text>
+      <Text style={styles.txt}>{user?.name}</Text>
     </View>
   );
 }

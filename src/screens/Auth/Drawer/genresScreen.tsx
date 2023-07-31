@@ -48,7 +48,8 @@ export default function GenresScreen({ route }: any) {
             })
           );
           updateGenres(updatedGenres);
-        });
+        })
+        .catch((e) => console.log(e));
 
       updateLoading(false);
     })();
