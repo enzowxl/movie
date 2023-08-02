@@ -13,6 +13,7 @@ export default function InputSearch({ update, value }: any) {
               height: 20,
               position: "absolute",
               left: 10,
+              tintColor: COLORS.secondary,
             }}
             source={require("../../../assets/Header/search.png")}
           />
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.secondary,
     borderRadius: 300,
     padding: 2,
-    marginTop:30
+    marginTop: 30,
   },
   contStyle: {
     width: 330,

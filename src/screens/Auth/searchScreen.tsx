@@ -18,7 +18,7 @@ import {
 } from "@expo-google-fonts/jost";
 
 import ListSearch from "../../components/Auth/ListSearch";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import SearchInfo from "../../components/Auth/SearchInfo";
 import InputSearch from "../../components/Auth/InputSearch";
 import { Header } from "../../components/Auth/Header";
@@ -56,14 +56,14 @@ export default function SearchScreen({ route }: any) {
     })();
   }, [search]);
 
-  if (!fontLoaded) return <Splash />;
+  if (!fontLoaded) return <Load />;
 
   return (
     <View style={styles.cont}>
       <InputSearch update={updateSearch} value={search} />
 
       {loading ? (
-        <Splash />
+        <Load />
       ) : search.length === 0 ? null : (
         <ListSearch data={response} />
       )}

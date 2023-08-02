@@ -16,7 +16,7 @@ import TabRoute from "./tab.routes";
 import StackRoute from "./stack.routes";
 import CustomDrawer from "../../components/Auth/Drawer";
 import StackProfileRoute from "./stackProfile.routes";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import StackListRoute from "./stackList.routes";
 import StackSearchRoute from "./stackSearch.routes";
 import StackGenresRoute from "./stackGenres.routes";
@@ -90,7 +90,7 @@ export default function DrawerRoute() {
             }).start();
           }
 
-          if (!fontLoaded) return <Splash />;
+          if (!fontLoaded) return <Load />;
 
           return <CustomDrawer navigation={props.navigation} />;
         }}

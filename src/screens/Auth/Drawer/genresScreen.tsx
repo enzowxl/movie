@@ -4,7 +4,7 @@ import { Header } from "../../../components/Auth/Header";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState, useContext } from "react";
 import ListGenres from "../../../components/Auth/ListGenres";
-import Splash from "../../../components/Splash";
+import Load from "../../../components/Load";
 import { MovieContext } from "../../../provider/movie";
 
 export default function GenresScreen({ route }: any) {
@@ -31,7 +31,7 @@ export default function GenresScreen({ route }: any) {
           const updatedGenres = await Promise.all(
             res.data.genres.map(async (genre: any) => {
               const moviesResponse = await api.request({
-                url: `discover/movie?include_adult=false&include_video=false&language=${movieContext.language}&page=${movieContext.page}&sort_by=popularity.desc&with_genres=${genre.id}`,
+                url: `discover/movie?include_adult=false&include_video=false&language=${movieContext.language}&sort_by=popularity.desc&with_genres=${genre.id}&page=${movieContext.page}`,
                 method: "GET",
                 headers: {
                   accept: "application/json",
@@ -55,7 +55,7 @@ export default function GenresScreen({ route }: any) {
     })();
   }, []);
 
-  if (loading) return <Splash />;
+  if (loading) return <Load />;
 
   return (
     <View style={styles.cont}>

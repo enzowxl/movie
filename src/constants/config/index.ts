@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const CONFIG = {
-  API_KEY: process.env.EXPO_PUBLIC_API_KEY
+  API_KEY: process.env.EXPO_PUBLIC_API_KEY,
 };
 
 export const api = axios.create({

@@ -24,7 +24,7 @@ export default function FavoritesScreen({ route }: any) {
         .then((res) => {
           updateResponse(res.data);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {});
     })();
   }, [response]);
 

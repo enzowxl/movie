@@ -16,7 +16,7 @@ interface DrawerButtonProps {
 export default function CustomDrawer({ navigation }: any) {
   const n = useNavigation<any>();
 
-  const { user } = useContext(AuthContext)
+  const { user, signOut } = useContext(AuthContext)
 
   const [photoVisible, updatePhotoVisible] = useState(false);
 
@@ -96,7 +96,7 @@ export default function CustomDrawer({ navigation }: any) {
           />
           <View style={{ position: "absolute", bottom: 0 }}>
             <DrawerButton
-              onPress={() => {}}
+              onPress={signOut}
               label={"Log Out"}
               icon={require("../../../assets/User/exit.png")}
             />

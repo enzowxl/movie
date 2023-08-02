@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -11,6 +11,7 @@ import {
 import { COLORS, ITEMS } from "../../../constants";
 import { CONFIG, api } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
+import { MovieContext } from "../../../provider/movie";
 
 interface ListProps {
   url: string;
@@ -19,6 +20,7 @@ interface ListProps {
 }
 
 export default function List({ url, title, page }: ListProps) {
+
   const n = useNavigation<any>();
 
   const [response, updateResponse] = useState<any>();

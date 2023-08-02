@@ -21,11 +21,13 @@ export const AuthContext = createContext<{
   logged: boolean;
   signIn: any;
   signUp: any;
+  signOut: any;
 }>({
   user: null,
   logged: false,
   signIn: () => {},
   signUp: () => {},
+  signOut: () => {},
 });
 
 export default function Provider({ children }: Props) {
@@ -79,6 +81,10 @@ export default function Provider({ children }: Props) {
       .catch((e) => console.log(e));
   }
 
+  async function signOut() {
+    updateUser(null);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -86,6 +92,7 @@ export default function Provider({ children }: Props) {
         logged: !!user,
         signIn,
         signUp,
+        signOut,
       }}
     >
       {children}

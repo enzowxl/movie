@@ -24,7 +24,7 @@ export default function WatchListScreen({ route }: any) {
         .then((res) => {
           updateResponse(res.data);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {});
     })();
   }, [response]);
 

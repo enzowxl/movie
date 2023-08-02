@@ -12,7 +12,7 @@ import {
 
 import { COLORS } from "../../../../constants";
 
-import Splash from "../../../Splash";
+import Load from "../../../Load";
 
 export default function StartScreenButton(props: any) {
   const [fontLoaded] = useFonts({
@@ -21,7 +21,7 @@ export default function StartScreenButton(props: any) {
   });
 
   if (!fontLoaded) {
-    return <Splash />;
+    return <Load />;
   }
 
   return (

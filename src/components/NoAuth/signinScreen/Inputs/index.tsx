@@ -49,6 +49,7 @@ export default function SignInInputs(props: InputSignInProps) {
           width: 300,
           height: 50,
           marginBottom: 30,
+          marginTop:30
         }}
       />
 

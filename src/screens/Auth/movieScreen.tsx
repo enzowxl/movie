@@ -14,7 +14,7 @@ import { COLORS, CONFIG, api, apiServer } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import Genres from "../../components/Auth/Genres";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import Cast from "../../components/Auth/Cast";
 import Recommendations from "../../components/Auth/Recommendations";
 import Overview from "../../components/Auth/Overview";
@@ -23,6 +23,8 @@ import MovieImage from "../../components/Auth/MovieImage";
 import { MovieContext } from "../../provider/movie";
 import Providers from "../../components/Auth/Providers";
 import { AuthContext } from "../../provider";
+import ModalOptions from "../../components/Auth/Modals/ModalOptions";
+import ModalOptionsBottom from "../../components/Auth/Modals/ModalOptionsBottom";
 
 export default function MovieScreen({ movieId, route }: any) {
   const params = route.params;
@@ -38,10 +40,29 @@ export default function MovieScreen({ movieId, route }: any) {
   const [provider, updateProvider] = useState<any>({});
   const [loading, updateLoading] = useState(true);
 
+  const [dotsVisible, updateDotsVisible] = useState(false);
+
   const [heart, updateHeart] = useState(false);
-  const [idDB, updateIdDB] = useState<any>();
+  const [list, updateList] = useState(false);
 
   const n = useNavigation<any>();
+
+  const options = [
+    {
+      id: 1,
+      name: heart ? "Remove Favorite" : "Add Favorite",
+      onPress: () => addMovieFavorite(response),
+      icon: heart
+        ? require("../../assets/Header/heart-favorite-full.png")
+        : require("../../assets/Header/heart-favorite.png"),
+    },
+    {
+      id: 2,
+      name: list ? "Remove WatchList" : "Add WatchList",
+      onPress: () => addMovieWatchList(response),
+      icon: require("../../assets/User/file.png"),
+    },
+  ];
 
   useEffect(() => {
     updateLoading(true);
@@ -126,41 +147,73 @@ export default function MovieScreen({ movieId, route }: any) {
           );
           if (filter) {
             updateHeart(true);
-            updateIdDB(filter.id);
             return;
           } else {
             updateHeart(false);
-            updateIdDB(null);
             return;
           }
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {});
+
+      await apiServer
+        .get("details/watchList", {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        })
+        .then((res) => {
+          let filter = res.data.find(
+            (d: any) =>
+              d.movie_id === (params?.movieId ? params?.movieId : movieId)
+          );
+          if (filter) {
+            updateList(true);
+            return;
+          } else {
+            updateList(false);
+            return;
+          }
+        })
+        .catch((e) => {});
 
       updateLoading(false);
     })();
   }, [movieId]);
 
-  if (loading) return <Splash />;
+  if (loading) return <Load />;
 
   async function addMovieFavorite(data: any) {
-    if (idDB !== null) {
+    if (heart) {
       await apiServer
-        .delete("delete/favorites", {
+        .get("details/favorites", {
           headers: {
             Authorization: `Bearer ${user?.token}`,
           },
-          params: {
-            favorite_id: idDB,
-          },
         })
-        .then((res) => {
-          updateHeart(false);
-          updateIdDB(null);
-          ToastAndroid.show("Removed the favorite", ToastAndroid.SHORT);
+        .then(async (res) => {
+          let filter = res.data.find(
+            (d: any) =>
+              d.movie_id === (params?.movieId ? params?.movieId : movieId)
+          );
+          await apiServer
+            .delete("delete/favorites", {
+              headers: {
+                Authorization: `Bearer ${user?.token}`,
+              },
+              params: {
+                favorite_id: filter.id,
+              },
+            })
+            .then((res) => {
+              updateHeart(false);
+              ToastAndroid.show("Removed the favorite", ToastAndroid.SHORT);
+            })
+            .catch((e) => console.log(e));
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {});
       return;
     }
+
     await apiServer
       .post(
         "create/favorites",
@@ -177,8 +230,64 @@ export default function MovieScreen({ movieId, route }: any) {
         }
       )
       .then((res) => {
+        console.log(res.data);
         updateHeart(true);
         ToastAndroid.show("Added the favorite", ToastAndroid.SHORT);
+      })
+      .catch((e) => console.log(e));
+  }
+
+  async function addMovieWatchList(data: any) {
+    if (list) {
+      await apiServer
+        .get("details/watchList", {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        })
+        .then(async (res) => {
+          let filter = res.data.find(
+            (d: any) =>
+              d.movie_id === (params?.movieId ? params?.movieId : movieId)
+          );
+          await apiServer
+            .delete("delete/watchList", {
+              headers: {
+                Authorization: `Bearer ${user?.token}`,
+              },
+              params: {
+                watchlist_id: filter.id,
+              },
+            })
+            .then((res) => {
+              updateList(false);
+              ToastAndroid.show("Removed the watchList", ToastAndroid.SHORT);
+            })
+            .catch((e) => console.log(e));
+        })
+        .catch((e) => {});
+      return;
+    }
+
+    await apiServer
+      .post(
+        "create/watchList",
+        {
+          name: data.original_title,
+          movie_id: data.id,
+          url_post: data.poster_path,
+          user_id: user?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        updateList(true);
+        ToastAndroid.show("Added the watchlist", ToastAndroid.SHORT);
       })
       .catch((e) => console.log(e));
   }
@@ -194,14 +303,18 @@ export default function MovieScreen({ movieId, route }: any) {
         />
         <Header.Center text="MOVIE DETAIL" />
         <Header.Right
-          onClick={() => addMovieFavorite(response)}
-          image={
-            heart
-              ? require("../../assets/Header/heart-favorite-full.png")
-              : require("../../assets/Header/heart-favorite.png")
-          }
+          onClick={() => updateDotsVisible(true)}
+          image={require("../../assets/Header/dots.png")}
         />
       </Header.Root>
+
+      {dotsVisible && (
+        <ModalOptionsBottom
+          options={options}
+          visible={dotsVisible}
+          updateVisible={() => updateDotsVisible(!dotsVisible)}
+        />
+      )}
 
       <MovieImage response={response?.poster_path} />
 

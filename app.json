@@ -1,7 +1,17 @@
 {
   "expo": {
-    "name": "movie",
-    "slug": "movie",
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
+    "name": "MovieLearn",
+    "slug": "MovieLearn",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +31,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000"
-      }
+      },
+      "package": "com.anonymous.MovieLearn"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-7990809046218633~9989538331"
   }
 }

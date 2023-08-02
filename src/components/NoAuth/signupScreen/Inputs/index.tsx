@@ -29,7 +29,7 @@ export default function SignUpInputs(props: InputSignUpProps) {
         placeholderTextColor={COLORS.gray}
         inputContainerStyle={styles.inputCont}
         inputStyle={styles.inputStyle}
-        containerStyle={styles.cont}
+        containerStyle={[styles.cont, {marginTop:30}]}
       />
 
       <Input

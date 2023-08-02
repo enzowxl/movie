@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   View,
@@ -19,22 +19,26 @@ import { COLORS, CONFIG, api } from "../../constants";
 
 import { Header } from "../../components/Auth/Header";
 
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import MoviesList from "../../components/Auth/MoviesList";
 import HeaderCenter from "../../components/Auth/Header/HeaderCenter";
 
 import { useNavigation } from "@react-navigation/native";
-import ButtonNextPage from "../../components/Auth/ButtonNextPage";
+import ButtonPage from "../../components/Auth/ButtonPage";
+import { MovieContext } from "../../provider/movie";
 
 export default function ListMoviesScreen({ data, route }: any) {
   const params = route.params;
 
   const title = data?.title ? data?.title : params?.data?.title;
+  const url = data?.url ? data?.url : params?.data?.url;
 
   const n = useNavigation<any>();
 
   const [response, updateResponse] = useState<any>();
   const [loading, updateLoading] = useState(true);
+
+  const [page, updatePage] = useState(1);
 
   const [fontLoaded] = useFonts({
     Jost_600SemiBold,
@@ -44,10 +48,11 @@ export default function ListMoviesScreen({ data, route }: any) {
 
   useEffect(() => {
     updateLoading(true);
+    updatePage(1);
     (async () => {
       await api
         .request({
-          url: data?.url ? data?.url : params?.data?.url,
+          url: `${url}&page=${page}`,
           method: "GET",
           headers: {
             accept: "application/json",
@@ -62,9 +67,37 @@ export default function ListMoviesScreen({ data, route }: any) {
     })();
   }, [data]);
 
-  if (loading) return <Splash />;
+  useEffect(() => {
+    updateLoading(true);
+    (async () => {
+      await api
+        .request({
+          url: `${url}&page=${page}`,
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${CONFIG.API_KEY}`,
+          },
+        })
+        .then(function (res) {
+          updateResponse(res.data.results);
+          updateLoading(false);
+        })
+        .catch((e) => console.log(e));
+    })();
+  }, [page]);
 
-  if (!fontLoaded) return <Splash />;
+  function NextPage() {
+    updatePage(page + 1);
+  }
+
+  function PreviousPage() {
+    updatePage(page - 1);
+  }
+
+  if (loading) return <Load />;
+
+  if (!fontLoaded) return <Load />;
 
   return (
     <View style={styles.cont}>
@@ -90,7 +123,29 @@ export default function ListMoviesScreen({ data, route }: any) {
           page={data?.page ? data?.page : params?.data?.page}
           data={response}
         />
-        {data?.page || params?.data?.page ? <ButtonNextPage /> : null}
+        {page >= 2 ? (
+          data?.page || params?.data?.page ? (
+            <View
+              style={{
+                flexDirection: "row",
+                position: "absolute",
+                bottom: 30,
+                marginHorizontal: 30,
+              }}
+            >
+              <ButtonPage
+                type="previous"
+                PreviousPage={PreviousPage}
+                NextPage={NextPage}
+              />
+              <ButtonPage type="next" PreviousPage={null} NextPage={NextPage} />
+            </View>
+          ) : null
+        ) : data?.page || params?.data?.page ? (
+          <View style={{ position: "absolute", bottom: 30 }}>
+            <ButtonPage type="next" PreviousPage={null} NextPage={NextPage} />
+          </View>
+        ) : null}
       </View>
     </View>
   );

@@ -18,7 +18,7 @@ import {
 import { COLORS } from "../../constants";
 
 import { Header } from "../../components/Auth/Header";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import List from "../../components/Auth/List";
 import HeaderCenter from "../../components/Auth/Header/HeaderCenter";
 import { useNavigation } from "@react-navigation/native";
@@ -35,7 +35,7 @@ export default function HomeScreen() {
     Jost_400Regular,
   });
 
-  if (!fontLoaded) return <Splash />;
+  if (!fontLoaded) return <Load />;
 
   return (
     <View style={styles.cont}>
@@ -73,25 +73,25 @@ export default function HomeScreen() {
           <List
             page={true}
             title="Popular"
-            url={`movie/popular?language=${movieContext.language}&page=${movieContext.page}`}
+            url={`movie/popular?language=${movieContext.language}`}
           />
 
           <List
             page={true}
             title="In theaters"
-            url={`movie/now_playing?language=${movieContext.language}&page=${movieContext.page}`}
+            url={`movie/now_playing?language=${movieContext.language}`}
           />
 
           <List
             page={true}
             title="Upcoming"
-            url={`movie/upcoming?language=${movieContext.language}&page=${movieContext.page}`}
+            url={`movie/upcoming?language=${movieContext.language}`}
           />
 
           <List
             page={true}
             title="Top rated"
-            url={`movie/top_rated?language=${movieContext.language}&page=${movieContext.page}`}
+            url={`movie/top_rated?language=${movieContext.language}`}
           />
         </View>
       </ScrollView>

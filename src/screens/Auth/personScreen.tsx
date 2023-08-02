@@ -12,7 +12,7 @@ import { Header } from "../../components/Auth/Header";
 import { COLORS, CONFIG, api } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import Recommendations from "../../components/Auth/Recommendations";
 import Participation from "../../components/Auth/Participations";
 import Biography from "../../components/Auth/Biography";
@@ -74,7 +74,7 @@ export default function PersonScreen({ personId, route }: any) {
     })();
   }, [personId]);
 
-  if (loading) return <Splash />;
+  if (loading) return <Load />;
 
   return (
     <View style={styles.cont}>

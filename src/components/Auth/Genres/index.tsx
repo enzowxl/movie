@@ -18,7 +18,7 @@ export default function Genres({ data }: any) {
 
   const ItemList = (props: any) => {
     function navigateGenreScreen(dataButton: any) {
-      const url = `discover/movie?include_adult=false&include_video=false&language=${movieContext.language}&page=${movieContext.page}&sort_by=popularity.desc&with_genres=${dataButton.id}`;
+      const url = `discover/movie?include_adult=false&include_video=false&language=${movieContext.language}&sort_by=popularity.desc&with_genres=${dataButton.id}`;
       n.navigate("ListMovies", {
         data: {
           title: dataButton.name,

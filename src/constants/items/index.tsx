@@ -10,5 +10,5 @@ export const ITEMS = {
     width: 170,
     height: 100,
     backgroundColor: COLORS.white02,
-  }
+  },
 };

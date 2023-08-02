@@ -13,7 +13,7 @@ import { COLORS } from "../../constants";
 import StartScreenList from "../../components/NoAuth/startScreen/index";
 import StartScreenPaginator from "../../components/NoAuth/startScreen/Paginator";
 import StartScreenButton from "../../components/NoAuth/startScreen/Button";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 
 export default function StartScreen() {
   const n = useNavigation<any>();
@@ -53,7 +53,7 @@ export default function StartScreen() {
     { useNativeDriver: false }
   );
 
-  if (!fontLoaded) return <Splash />;
+  if (!fontLoaded) return <Load />;
 
   return (
     <View style={styles.cont}>

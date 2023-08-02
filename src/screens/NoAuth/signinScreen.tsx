@@ -14,8 +14,7 @@ import {
 } from "@expo-google-fonts/jost";
 import { useNavigation } from "@react-navigation/native";
 
-import Movie from "../../components/NoAuth/signinScreen/Movie";
-import Splash from "../../components/Splash";
+import Load from "../../components/Load";
 import SignInInputs from "../../components/NoAuth/signinScreen/Inputs";
 import SignInButton from "../../components/NoAuth/signinScreen/Button";
 import { COLORS } from "../../constants";
@@ -37,15 +36,12 @@ export default function SignInScreen() {
     updatePassword("");
   }
 
-  if (!fontLoaded) return <Splash />;
+  if (!fontLoaded) return <Load />;
 
   return (
     <View style={styles.cont}>
-      <Movie />
-
+      <Text style={styles.title}>Sign In</Text>
       <View style={[styles.cont2, { width }]}>
-        <Text style={styles.title}>Sign In</Text>
-
         <SignInInputs
           email={email}
           password={password}
@@ -62,10 +58,7 @@ export default function SignInScreen() {
           <Text style={styles.subtitle}>Forgot password?</Text>
         </TouchableOpacity>
 
-        <SignInButton
-          email={email}
-          password={password}
-        />
+        <SignInButton email={email} password={password} />
 
         <TouchableOpacity onPress={navigateSignUp}>
           <Text style={styles.subtitle2}>
@@ -86,7 +79,7 @@ const styles = StyleSheet.create({
   },
 
   cont2: {
-    height: "80%",
+    height: "85%",
     backgroundColor: COLORS.primary,
     position: "absolute",
     bottom: 0,
@@ -98,11 +91,9 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 25,
-    color: COLORS.secondary,
-    marginTop: 20,
-    textShadowColor: COLORS.secondary,
-    textShadowRadius: 5,
-    marginBottom: 30,
+    color: COLORS.primary,
+    marginTop: 50,
+    fontWeight: "900",
   },
   subtitle: {
     fontFamily: "Jost_600SemiBold",
