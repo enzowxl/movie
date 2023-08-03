@@ -33,7 +33,7 @@ import {
 
 const adUnitId = __DEV__
   ? TestIds.INTERSTITIAL
-  : "ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy";
+  : (process.env.EXPO_PUBLIC_INTERSTITIAL_ADMOB as string);
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   requestNonPersonalizedAdsOnly: true,
