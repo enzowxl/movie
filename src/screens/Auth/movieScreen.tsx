@@ -25,6 +25,20 @@ import Providers from "../../components/Auth/Providers";
 import { AuthContext } from "../../provider";
 import ModalOptions from "../../components/Auth/Modals/ModalOptions";
 import ModalOptionsBottom from "../../components/Auth/Modals/ModalOptionsBottom";
+import {
+  InterstitialAd,
+  AdEventType,
+  TestIds,
+} from "react-native-google-mobile-ads";
+
+const adUnitId = __DEV__
+  ? TestIds.INTERSTITIAL
+  : "ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy";
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ["fashion", "clothing"],
+});
 
 export default function MovieScreen({ movieId, route }: any) {
   const params = route.params;
@@ -63,6 +77,22 @@ export default function MovieScreen({ movieId, route }: any) {
       icon: require("../../assets/User/file.png"),
     },
   ];
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+        interstitial.show();
+      }
+    );
+
+    interstitial.load();
+
+    return unsubscribe;
+  }, [movieId]);
 
   useEffect(() => {
     updateLoading(true);
@@ -180,6 +210,8 @@ export default function MovieScreen({ movieId, route }: any) {
     })();
   }, [movieId]);
 
+  if (!loaded) return <Load />;
+
   if (loading) return <Load />;
 
   async function addMovieFavorite(data: any) {
@@ -206,7 +238,7 @@ export default function MovieScreen({ movieId, route }: any) {
             })
             .then((res) => {
               updateHeart(false);
-              ToastAndroid.show("Removed the favorite", ToastAndroid.SHORT);
+              //ToastAndroid.show("Removed the favorite", ToastAndroid.SHORT);
             })
             .catch((e) => console.log(e));
         })
@@ -232,7 +264,7 @@ export default function MovieScreen({ movieId, route }: any) {
       .then((res) => {
         console.log(res.data);
         updateHeart(true);
-        ToastAndroid.show("Added the favorite", ToastAndroid.SHORT);
+        //ToastAndroid.show("Added the favorite", ToastAndroid.SHORT);
       })
       .catch((e) => console.log(e));
   }
@@ -261,7 +293,7 @@ export default function MovieScreen({ movieId, route }: any) {
             })
             .then((res) => {
               updateList(false);
-              ToastAndroid.show("Removed the watchList", ToastAndroid.SHORT);
+              //ToastAndroid.show("Removed the watchList", ToastAndroid.SHORT);
             })
             .catch((e) => console.log(e));
         })
@@ -287,7 +319,7 @@ export default function MovieScreen({ movieId, route }: any) {
       .then((res) => {
         console.log(res.data);
         updateList(true);
-        ToastAndroid.show("Added the watchlist", ToastAndroid.SHORT);
+        //ToastAndroid.show("Added the watchlist", ToastAndroid.SHORT);
       })
       .catch((e) => console.log(e));
   }

@@ -6,6 +6,7 @@ import {
 import StartScreen from "../../screens/NoAuth/startScreen";
 import SignInScreen from "../../screens/NoAuth/signinScreen";
 import SignUpScreen from "../../screens/NoAuth/signupScreen";
+import ___test___ from "../../screens/___test___/testScreen";
 
 export default function NoAuthRoute() {
   const Stack = createStackNavigator();
@@ -23,6 +24,8 @@ export default function NoAuthRoute() {
       }}
       initialRouteName="Start"
     >
+      <Stack.Screen name="Test" component={___test___} />
+
       <Stack.Screen name="Start" component={StartScreen} />
 
       <Stack.Screen name="SignIn" component={SignInScreen} />
